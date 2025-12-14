@@ -1,0 +1,125 @@
+[gd_scene load_steps=10 format=4 uid="uid://cq00bdd0f44ow"]
+
+[ext_resource type="Script" uid="uid://d5tvah4p6eak" path="res://game.gd" id="1_80nbo"]
+[ext_resource type="PackedScene" uid="uid://c1j2g6bhjcgeu" path="res://Player/player.tscn" id="2_e2o6t"]
+[ext_resource type="Texture2D" uid="uid://c2iw1ue5xyt4c" path="res://TileSet.png" id="3_feb5d"]
+[ext_resource type="PackedScene" uid="uid://d01l7a5nwisbl" path="res://mob.tscn" id="4_fc0e3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fc0e3"]
+texture = ExtResource("3_feb5d")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_e2o6t"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_fc0e3")
+
+[sub_resource type="GDScript" id="GDScript_fc0e3"]
+script/source = "extends Label
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	text=\"HP:\" + str($\"../../Player/Player\".health)
+"
+
+[sub_resource type="GDScript" id="GDScript_7jktm"]
+script/source = "extends Label
+
+func _process(_delta):
+	text=\"Gold:\"+str($\"../../Player/Player\".gold)
+"
+
+[sub_resource type="GDScript" id="GDScript_ryrav"]
+script/source = "extends Node2D
+
+var gold = preload(\"res://gold.tscn\")
+
+func _on_timer_timeout():
+	var goldTemp=gold.instantiate()
+	var RNG=RandomNumberGenerator.new()
+	var randint=randi_range(50, 500)
+	goldTemp.position=Vector2(randint, 530)
+	add_child(goldTemp)
+"
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_80nbo")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAABEAAAAAAAAAAAABABEAAAABAAAAAAACABEAAAABAAAAAAADABEAAAABAAAAAAAEABEAAAABAAAAAAAHABEAAAABAAAAAAAIABEAAAABAAAAAAAJABEAAAABAAAAAAAKABEAAAABAAAAAAALABEAAAABAAAAAAAMABEAAAABAAAAAAANABEAAAABAAAAAAAAABMAAAAAAAIAAAABABMAAAABAAIAAAACABMAAAABAAIAAAADABMAAAABAAIAAAAEABMAAAABAAIAAAAFABMAAAABAAIAAAAGABMAAAABAAIAAAAHABMAAAABAAIAAAAIABMAAAABAAIAAAAJABMAAAABAAIAAAAKABMAAAABAAIAAAALABMAAAABAAIAAAAMABMAAAABAAIAAAANABMAAAABAAIAAAAAABIAAAAAAAEAAAAIABIAAAABAAEAAAAJABIAAAABAAEAAAAKABIAAAABAAEAAAALABIAAAABAAEAAAAMABIAAAABAAEAAAANABIAAAABAAEAAAAdABEAAAABAAAAAAAdABIAAAABAAEAAAAdABMAAAABAAIAAAAeABEAAAABAAAAAAAeABIAAAABAAEAAAAeABMAAAABAAIAAAAfABEAAAACAAAAAAAfABIAAAACAAEAAAAfABMAAAACAAIAAAAFABEAAAABAAAAAAAGABEAAAABAAAAAAABABIAAAABAAEAAAACABIAAAABAAEAAAADABIAAAABAAEAAAAEABIAAAABAAEAAAAFABIAAAABAAEAAAAGABIAAAABAAEAAAAHABIAAAABAAEAAAAOABEAAAABAAAAAAAOABIAAAABAAEAAAAOABMAAAABAAIAAAAPABEAAAABAAAAAAAPABIAAAABAAEAAAAPABMAAAABAAIAAAAQABEAAAABAAAAAAAQABIAAAABAAEAAAAQABMAAAABAAIAAAARABEAAAABAAAAAAARABIAAAABAAEAAAARABMAAAABAAIAAAASABEAAAABAAAAAAASABIAAAABAAEAAAASABMAAAABAAIAAAATABEAAAABAAAAAAATABIAAAABAAEAAAATABMAAAABAAIAAAAUABEAAAABAAAAAAAUABIAAAABAAEAAAAUABMAAAABAAIAAAAVABEAAAABAAAAAAAVABIAAAABAAEAAAAVABMAAAABAAIAAAAWABEAAAABAAAAAAAWABIAAAABAAEAAAAWABMAAAABAAIAAAAXABEAAAABAAAAAAAXABIAAAABAAEAAAAXABMAAAABAAIAAAAYABEAAAABAAAAAAAYABIAAAABAAEAAAAYABMAAAABAAIAAAAZABEAAAABAAAAAAAZABIAAAABAAEAAAAZABMAAAABAAIAAAAaABEAAAABAAAAAAAaABIAAAABAAEAAAAaABMAAAABAAIAAAAbABEAAAABAAAAAAAbABIAAAABAAEAAAAbABMAAAABAAIAAAAcABEAAAABAAAAAAAcABIAAAABAAEAAAAcABMAAAABAAIAAAAjABAAAAAAAAAAAAAjABEAAAAAAAEAAAAjABMAAAAAAAIAAAAkABEAAAABAAEAAAAlABIAAAABAAEAAAAmABIAAAABAAEAAAAnABIAAAABAAEAAAAoABIAAAABAAEAAAApABIAAAABAAEAAAAqABIAAAABAAEAAAArABIAAAABAAEAAAAkABIAAAABAAEAAAAlABEAAAABAAEAAAAmABEAAAABAAEAAAAnABEAAAABAAEAAAAoABEAAAABAAEAAAApABEAAAABAAEAAAAqABEAAAABAAEAAAArABEAAAABAAEAAAAsABEAAAABAAEAAAAsABIAAAABAAEAAAAtABEAAAACAAEAAAAtABIAAAACAAEAAAAtABMAAAACAAIAAAAkABMAAAABAAIAAAAlABMAAAABAAIAAAAmABMAAAABAAIAAAAnABMAAAABAAIAAAAoABMAAAABAAIAAAApABMAAAABAAIAAAAqABMAAAABAAIAAAArABMAAAABAAIAAAAsABMAAAABAAIAAAAjABIAAAAAAAEAAAAkABAAAAABAAAAAAAlABAAAAABAAAAAAAmABAAAAABAAAAAAAnABAAAAABAAAAAAAoABAAAAABAAAAAAApABAAAAABAAAAAAArABAAAAABAAAAAAAsABAAAAABAAAAAAAtABAAAAACAAAAAAAqABAAAAABAAAAAAA=")
+tile_set = SubResource("TileSet_e2o6t")
+
+[node name="Player" type="Node2D" parent="."]
+
+[node name="Player" parent="Player" instance=ExtResource("2_e2o6t")]
+position = Vector2(16, 501)
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Mob" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(375, 506)
+
+[node name="Mob2" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(632, 519)
+
+[node name="Mob3" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(836, 517)
+
+[node name="Mob4" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(972.00006, 522)
+
+[node name="Mob5" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(1187, 486)
+
+[node name="Mob6" parent="Mobs" instance=ExtResource("4_fc0e3")]
+position = Vector2(1404, 493.00003)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HP"
+script = SubResource("GDScript_fc0e3")
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+offset_top = 26.0
+offset_right = 45.0
+offset_bottom = 49.0
+text = "GOLD"
+script = SubResource("GDScript_7jktm")
+
+[node name="Collectibles" type="Node2D" parent="."]
+script = SubResource("GDScript_ryrav")
+
+[node name="Timer" type="Timer" parent="Collectibles"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Collectibles/Timer" to="Collectibles" method="_on_timer_timeout"]
