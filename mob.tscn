@@ -29,6 +29,7 @@ size = Vector2(12.222221, 6.666667)
 
 [node name="Mob" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
+collision_layer = 4
 script = ExtResource("1_nokgg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

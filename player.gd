@@ -1,89 +1,105 @@
 extends CharacterBody2D
+class_name Player # Чтобы мобы вас видели
 
-enum{
-	Attack,
-	Idle,
-	Death,
-	Moving,
-	Block,
-	Falling,
-	Sliding
-}
-
-var health = 100
+# --- Настройки ---
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-@onready var anim=$AnimatedSprite2D
+
+# --- Состояние ---
+var health = 100
 var gold = 0
-var state=Moving
+var is_attacking = false # Флаг: атакуем мы сейчас или нет
+
+# --- Ссылки ---
+@onready var anim = $AnimatedSprite2D
+
+func _ready():
+	# Сообщаем, что игрок появился (для мобов и UI)
+	add_to_group("player")
+	# Подключаем сигнал окончания анимации через код, чтобы не настраивать в редакторе
+	anim.animation_finished.connect(_on_animation_finished)
 
 func _physics_process(delta):
-	match state:
-		Moving:
-			move_state()
-		Attack:
-			pass
-		Death:
-			pass
-		Idle:
-			pass
-		Block:
-			block_state()
-		Falling:
-			pass
-		Sliding:
-			slide_state()
+	# 1. Гравитация
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+
+	# 2. Обработка Атаки
+	# Если нажали атаку и мы сейчас не заняты атакой
+	if Input.is_action_just_pressed("ui_accept") and not is_attacking:
+		start_attack()
+
+	# 3. Движение (только если мы НЕ атакуем)
+	# Мы хотим стоять на месте во время удара
+	if is_attacking:
+		velocity.x = 0
+	else:
+		handle_movement()
+
+	# 4. Прыжок (Можно прыгать, если не атакуем)
+	if Input.is_action_just_pressed("ui_up") and is_on_floor() and not is_attacking:
 		velocity.y = JUMP_VELOCITY
-	if Input.is_action_just_pressed("ui_accept"):
-		anim.play("Attack")
-		#await anim.animation_finished
-	if not is_on_floor():
-		state=Falling
-	if is_on_floor():
-		state=Moving
-	if health<=0:
-		anim.play("Death")
-		get_tree().change_scene_to_file("res://menu.tscn")
+
+	# 5. Применяем движение
 	move_and_slide()
-var direction := Input.get_axis("ui_left", "ui_right")
-func move_state():
-	var direction := Input.get_axis("ui_left", "ui_right")
+	
+	# 6. Обновляем анимации (если не атакуем)
+	if not is_attacking:
+		update_animations()
+
+	# 7. Смерть
+	if health <= 0:
+		die()
+
+# --- Логика Движения ---
+func handle_movement():
+	# Получаем ввод (-1 влево, 1 вправо, 0 стоим)
+	var direction = Input.get_axis("ui_left", "ui_right")
+	
 	if direction:
 		velocity.x = direction * SPEED
-		anim.play("Moving")
-		#if velocity.y==0:
-		#	anim.play("Moving")
+		# Поворачиваем спрайт
+		if direction < 0:
+			anim.flip_h = true
+		else:
+			anim.flip_h = false
 	else:
+		# Плавная остановка (или можно просто velocity.x = 0)
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		anim.play("Idle")
-		#if velocity.y==0:
-		#	anim.play("Idle")
-	if direction==-1:
-		$AnimatedSprite2D.flip_h = true
-	elif direction==1:
-		$AnimatedSprite2D.flip_h= false
-		
-	if Input.is_action_just_pressed("ui_accept"):
-		state=Attack
-	if Input.is_action_just_pressed("ui_down"):
-		if velocity.x==0:
-			state = Block
-		#else:
-			#state=Sliding
-func block_state():
-	velocity.x=0
-	anim.play("Idle")
-	if Input.is_action_just_released("ui_down"):
-		state=Moving
-func slide_state():
-	velocity.x=500*direction
 
-func attack_state():
-	velocity.x=0
+# --- Логика Анимаций (Бег/Прыжок/Стойка) ---
+func update_animations():
+	if is_on_floor():
+		if velocity.x == 0:
+			anim.play("Idle")
+		else:
+			anim.play("Moving")
+	else:
+		# Если у вас есть анимация падения/прыжка, вставьте сюда
+		# anim.play("Jump") 
+		pass
+
+# --- Логика Атаки ---
+func start_attack():
+	is_attacking = true
 	anim.play("Attack")
-	await anim.animation_finished
-	state=Moving
+	velocity.x = 0 # Стоп при ударе
+
+# Этот метод вызовется сам, когда любая анимация доиграет до конца
+func _on_animation_finished():
+	if anim.animation == "Attack":
+		is_attacking = false
+		# После атаки сразу решаем, какую анимацию играть (чтобы не было мигания)
+		update_animations()
+
+# --- Получение урона ---
+func take_damage(amount):
+	health -= amount
+	if health <= 0:
+		die()
+
+func die():
+	set_physics_process(false) # Отключаем управление
+	anim.play("Death")
+	await anim.animation_finished # Ждем проигрывания смерти
+	get_tree().change_scene_to_file("res://menu.tscn")
