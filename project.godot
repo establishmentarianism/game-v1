@@ -15,6 +15,10 @@ run/main_scene="uid://dsp37j5dpi64f"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Events="*res://autoload/events.gd"
+
 [layer_names]
 
 2d_physics/layer_1="world"

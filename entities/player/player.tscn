@@ -1,7 +1,7 @@
-[gd_scene load_steps=36 format=3 uid="uid://c1j2g6bhjcgeu"]
+[gd_scene load_steps=37 format=3 uid="uid://c1j2g6bhjcgeu"]
 
 [ext_resource type="Texture2D" uid="uid://cfx4lt8uptuwd" path="res://Warrior/Warrior/1.png" id="1_b1ygp"]
-[ext_resource type="Script" uid="uid://deqo2uj8udo7a" path="res://player.gd" id="1_o28un"]
+[ext_resource type="Script" uid="uid://deqo2uj8udo7a" path="res://entities/player/player.gd" id="1_o28un"]
 [ext_resource type="Texture2D" uid="uid://c18jolnafxdpi" path="res://Warrior/Warrior/61.png" id="2_8viyr"]
 [ext_resource type="Texture2D" uid="uid://dlakj8qo5uq87" path="res://Warrior/Warrior/41.png" id="2_i4o1l"]
 [ext_resource type="Texture2D" uid="uid://dupj13rosdbem" path="res://Warrior/Warrior/2.png" id="2_o28un"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://bop5w3273o4er" path="res://Warrior/Warrior/16.png" id="16_i4o1l"]
 [ext_resource type="Texture2D" uid="uid://bui38adkn1pi" path="res://Warrior/Warrior/17.png" id="17_j2n6q"]
 [ext_resource type="Texture2D" uid="uid://o3vroir76vak" path="res://Warrior/Warrior/18.png" id="18_c6x0f"]
+[ext_resource type="Script" uid="uid://go4ph1hdd2ox" path="res://components/health_component.gd" id="34_8q4fm"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sh265"]
 
@@ -180,5 +181,8 @@ position_smoothing_enabled = true
 position_smoothing_speed = 18.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Health Component" type="Node" parent="."]
+script = ExtResource("34_8q4fm")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

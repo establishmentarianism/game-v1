@@ -1,11 +1,9 @@
 extends Label
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	# Подписываемся на глобальное событие изменения здоровья
+	Events.player_health_changed.connect(update_health_text)
+	text = "HP: 100" # Начальное значение
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	text = "HP:" + str($"../Player/Player".health)
+func update_health_text(current: int, _max: int):
+	text = "HP: " + str(current)

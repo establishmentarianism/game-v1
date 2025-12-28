@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d01l7a5nwisbl"]
 
-[ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://mob.gd" id="1_nokgg"]
+[ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://entities/enemies/mob.gd" id="1_nokgg"]
 [ext_resource type="Texture2D" uid="uid://bnpnmlr234nt2" path="res://Без названия.jpg" id="2_ubaqv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p11y5"]

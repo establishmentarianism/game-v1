@@ -1,9 +1,11 @@
 [gd_scene load_steps=10 format=4 uid="uid://cq00bdd0f44ow"]
 
 [ext_resource type="Script" uid="uid://d5tvah4p6eak" path="res://game.gd" id="1_80nbo"]
-[ext_resource type="PackedScene" uid="uid://c1j2g6bhjcgeu" path="res://Player/player.tscn" id="2_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://c1j2g6bhjcgeu" path="res://entities/player/player.tscn" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://c2iw1ue5xyt4c" path="res://TileSet.png" id="3_feb5d"]
-[ext_resource type="PackedScene" uid="uid://d01l7a5nwisbl" path="res://mob.tscn" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://d01l7a5nwisbl" path="res://entities/enemies/mob.tscn" id="4_fc0e3"]
+[ext_resource type="Script" path="res://label.gd" id="5_ryrav"]
+[ext_resource type="Script" uid="uid://bxgnwltah8y3u" path="res://ui/gold_label.gd" id="6_eow3j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fc0e3"]
 texture = ExtResource("3_feb5d")
@@ -31,27 +33,6 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fc0e3")
-
-[sub_resource type="GDScript" id="GDScript_fc0e3"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	text=\"HP:\" + str($\"../../Player/Player\".health)
-"
-
-[sub_resource type="GDScript" id="GDScript_7jktm"]
-script/source = "extends Label
-
-func _process(_delta):
-	text=\"Gold:\"+str($\"../../Player/Player\".gold)
-"
 
 [sub_resource type="GDScript" id="GDScript_ryrav"]
 script/source = "extends Node2D
@@ -106,14 +87,14 @@ position = Vector2(1404, 493.00003)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "HP"
-script = SubResource("GDScript_fc0e3")
+script = ExtResource("5_ryrav")
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
 offset_top = 26.0
 offset_right = 45.0
 offset_bottom = 49.0
 text = "GOLD"
-script = SubResource("GDScript_7jktm")
+script = ExtResource("6_eow3j")
 
 [node name="Collectibles" type="Node2D" parent="."]
 script = SubResource("GDScript_ryrav")
