@@ -1,5 +1,5 @@
-extends CharacterBody2D
 class_name Player
+extends CharacterBody2D
 
 # --- Настройки ---
 const SPEED = 300.0
@@ -8,11 +8,13 @@ const JUMP_VELOCITY = -400.0
 # --- Зависимости ---
 # Теперь это необязательно назначать вручную, но можно
 @export var health_component: HealthComponent
-@onready var anim = $AnimatedSprite2D
 
 # --- Состояние ---
 var gold = 0
 var is_attacking = false
+
+@onready var anim = $AnimatedSprite2D
+
 
 func _ready():
 	add_to_group("player")
@@ -33,9 +35,13 @@ func _ready():
 		health_component.health_changed.connect(_on_health_changed)
 		print("Player: HealthComponent успешно подключен.")
 	else:
-		printerr("CRITICAL: HealthComponent не найден! Убедись, что у игрока есть дочерний узел 'Health Component'.")
+		printerr(
+			"CRITICAL: HealthComponent не найден! ",
+			"Убедись, что у игрока есть дочерний узел 'Health Component'."
+		)
 		# Чтобы игра не упала с криш-ошибкой, просто выходим
 		return
+
 
 func _physics_process(delta):
 	# Гравитация
@@ -64,6 +70,7 @@ func _physics_process(delta):
 	if not is_attacking:
 		update_animations()
 
+
 func handle_movement():
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction:
@@ -72,6 +79,7 @@ func handle_movement():
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
+
 func update_animations():
 	if is_on_floor():
 		if velocity.x == 0:
@@ -79,23 +87,28 @@ func update_animations():
 		else:
 			anim.play("Moving")
 
+
 func start_attack():
 	is_attacking = true
 	anim.play("Attack")
 	velocity.x = 0
+
 
 func _on_animation_finished():
 	if anim.animation == "Attack":
 		is_attacking = false
 		update_animations()
 
+
 func take_damage(amount: int):
 	if health_component:
 		health_component.take_damage(amount)
 
+
 func _on_health_changed(new_val: int):
 	if health_component:
 		Events.player_health_changed.emit(new_val, health_component.max_health)
+
 
 func die():
 	set_physics_process(false)

@@ -1,0 +1,3 @@
+pre-commit==3.6.0   # Менеджер хуков
+gdtoolkit==4.2.2    # Линтер и форматир (gdlint, gdformat)
+setuptools<70.0.0   # Фикс для ошибки pkg_resources

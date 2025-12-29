@@ -20,6 +20,10 @@ config/icon="res://assets/icon.svg"
 Events="*res://src/_autoload/events.gd"
 ScreenManager="*res://src/_autoload/screen_manager.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
+
 [layer_names]
 
 2d_physics/layer_1="world"

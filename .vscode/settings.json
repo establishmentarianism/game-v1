@@ -1,0 +1,31 @@
+{
+  // Указываем расширению Python, где лежит наш интерпретатор
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+
+  // Указываем расширению Godot Tools, где лежат инструменты линтинга
+  "godot_tools.gdscript_lsp_server_port": 6005,
+
+  // Пути к инструментам внутри вашей среды инициализации
+  "gdscript.linter.executablePath": "${workspaceFolder}/.venv/Scripts/gdlint.exe",
+  "gdscript.formatter.executablePath": "${workspaceFolder}/.venv/Scripts/gdformat.exe",
+
+  "VsCodeTaskButtons.showCounter": false,
+  "VsCodeTaskButtons.tasks": [
+    {
+      "label": "🛠️ Настроить среду",
+      "task": "🛠️ Init Dev Env",
+      "tooltip": "Создать .venv, установить зависимости и настроить Git-хуки"
+    },
+    {
+      "label": "✨ Формат и Линт",
+      "task": "✨ Lint & Format",
+      "tooltip": "Автоматически исправить оформление и проверить код на ошибки"
+    },
+    {
+      "label": "🧪 Запустить тесты",
+      "task": "🧪 Run All Tests",
+      "tooltip": "Запустить интеграционные и юнит-тесты (.test.gd) в фоновом режиме",
+      "color": "#afff00"
+    }
+  ]
+}

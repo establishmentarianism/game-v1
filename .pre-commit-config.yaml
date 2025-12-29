@@ -1,0 +1,39 @@
+# Глобальное исключение (работает для gdformat и gdlint)
+exclude: "^(addons|docs|vendor)/"
+
+repos:
+  - repo: local
+    hooks:
+      - id: gdformat
+        name: gdformat
+        entry: .venv/Scripts/gdformat.exe
+        language: system
+        types: [gdscript]
+
+      - id: gdlint
+        name: gdlint
+        entry: .venv/Scripts/gdlint.exe
+        language: system
+        types: [gdscript]
+        # Убрали args: ["--max-line-length", "100"], так как это значение по умолчанию,
+        # и явная передача аргументов вызывает ошибку парсера на Windows.
+
+      - id: gut-tests
+        name: Godot Unit Tests
+        entry: godot
+        language: system
+        pass_filenames: false
+        always_run: true
+        args: [
+            "--headless",
+            "-s",
+            "addons/gut/gut_cmdln.gd",
+            "-gdir",
+            "res://",
+            "-ginclude_subdirs",
+            "-gsuffix",
+            ".test.gd",
+            # Этот аргумент нужен для запуска тестов, имена которых не начинаются на test_
+            "-gprefix=",
+            "-gexit",
+          ]

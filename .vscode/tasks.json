@@ -1,0 +1,55 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🛠️ Init Dev Env",
+      "type": "process",
+      "command": "pwsh",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", "./dev_tools/setup.ps1"],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      }
+    },
+    {
+      "label": "✨ Lint & Format",
+      "type": "process",
+      "command": "pwsh",
+      "args": [
+        "-Command",
+        "if (-not (Test-Path .venv)) { Write-Error \"❌ .venv не найден! Сначала запустите задачу Init Dev Env.\"; exit 1 }; Write-Host \"🎨 Formatting...\"; & \".\\.venv\\Scripts\\gdformat.exe\" src tests; if ($?) { Write-Host \"🔍 Linting...\"; & \".\\.venv\\Scripts\\gdlint.exe\" src tests }"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "🧪 Run All Tests",
+      "type": "shell",
+      "command": "godot",
+      "args": [
+        "--headless",
+        "-s",
+        "addons/gut/gut_cmdln.gd",
+        "-gdir",
+        "res://",
+        "-ginclude_subdirs",
+        "-gsuffix",
+        ".test.gd",
+        "-gprefix=",
+        "-gexit"
+      ],
+      "problemMatcher": "$godot-shader-compiler"
+    }
+  ]
+}
