@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://d01l7a5nwisbl"]
+
+[ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://src/entities/enemies/mob.gd" id="1_nokgg"]
+[ext_resource type="Texture2D" uid="uid://bnpnmlr234nt2" path="res://assets/textures/enemies/Без названия.jpg" id="2_ubaqv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p11y5"]
+radius = 8.333333
+height = 33.333332
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s5nov"]
+radius = 285.66144
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b3mxk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ubaqv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nokgg"]
+size = Vector2(7.3333335, 1.833333)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubaqv"]
+size = Vector2(12.222221, 6.666667)
+
+[node name="Mob" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 4
+script = ExtResource("1_nokgg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CapsuleShape2D_p11y5")
+
+[node name="AggroArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+scale = Vector2(0.6, 0.6)
+shape = SubResource("CircleShape2D_s5nov")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1.1920929e-07)
+scale = Vector2(0.09973403, 0.09973404)
+sprite_frames = SubResource("SpriteFrames_b3mxk")
+
+[node name="MobDeath" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDeath"]
+position = Vector2(0.33333337, -7.5833335)
+shape = SubResource("RectangleShape2D_nokgg")
+
+[node name="Dmage" type="Area2D" parent="."]
+scale = Vector2(1.2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dmage"]
+position = Vector2(0, -0.6666667)
+shape = SubResource("RectangleShape2D_ubaqv")
+
+[connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
+[connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]
+[connection signal="body_entered" from="MobDeath" to="." method="_on_death_body_entered"]
+[connection signal="body_entered" from="Dmage" to="." method="_on_player_death_body_entered"]
