@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 Events="*res://src/_autoload/events.gd"
+ScreenManager="*res://src/_autoload/screen_manager.gd"
 
 [layer_names]
 

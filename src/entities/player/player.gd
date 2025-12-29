@@ -17,16 +17,16 @@ var is_attacking = false
 func _ready():
 	add_to_group("player")
 	anim.animation_finished.connect(_on_animation_finished)
-	
+
 	# --- АВТОПОИСК КОМПОНЕНТА ---
 	# 1. Если не назначено в Инспекторе, ищем по имени "Health Component" (с пробелом)
 	if not health_component:
 		health_component = get_node_or_null("Health Component")
-	
+
 	# 2. Если все еще нет, ищем по имени без пробела (на всякий случай)
 	if not health_component:
 		health_component = get_node_or_null("HealthComponent")
-		
+
 	# 3. Финальная проверка и подключение
 	if health_component:
 		health_component.died.connect(die)
@@ -41,7 +41,7 @@ func _physics_process(delta):
 	# Гравитация
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
+
 	# Сообщаем позицию
 	Events.player_moved.emit(global_position)
 
@@ -60,7 +60,7 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	move_and_slide()
-	
+
 	if not is_attacking:
 		update_animations()
 
@@ -102,4 +102,4 @@ func die():
 	anim.play("Death")
 	Events.player_died.emit()
 	await anim.animation_finished
-	get_tree().change_scene_to_file("res://ui/menu.tscn")
+	ScreenManager.load_menu()
