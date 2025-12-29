@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c1j2g6bhjcgeu" path="res://entities/player/player.tscn" id="2_e2o6t"]
 [ext_resource type="Texture2D" uid="uid://c2iw1ue5xyt4c" path="res://TileSet.png" id="3_feb5d"]
 [ext_resource type="PackedScene" uid="uid://d01l7a5nwisbl" path="res://entities/enemies/mob.tscn" id="4_fc0e3"]
-[ext_resource type="Script" path="res://label.gd" id="5_ryrav"]
+[ext_resource type="Script" uid="uid://cxhuxwur5dhd0" path="res://label.gd" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bxgnwltah8y3u" path="res://ui/gold_label.gd" id="6_eow3j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fc0e3"]
