@@ -1,0 +1,13 @@
+[project]
+name = "godot-dev-tools"
+version = "0.1.0"
+description = "Инструменты автоматизации (Linter, Formatter)"
+requires-python = ">=3.10"
+dependencies = ["gdtoolkit==4.2.2", "pre-commit==3.6.0", "setuptools<70.0.0"]
+
+[tool.uv]
+package = false
+
+[tool.gdlint]
+max-line-length = 100
+disable = ["class-definitions-order"]
