@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://cq00bdd0f44ow"]
+[gd_scene load_steps=11 format=4 uid="uid://cq00bdd0f44ow"]
 
 [ext_resource type="Script" uid="uid://d5tvah4p6eak" path="res://src/screens/game.gd" id="1_80nbo"]
 [ext_resource type="PackedScene" uid="uid://c1j2g6bhjcgeu" path="res://src/entities/player/player.tscn" id="2_e2o6t"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://d01l7a5nwisbl" path="res://src/entities/enemies/mob.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://cxhuxwur5dhd0" path="res://src/ui/label.gd" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://bxgnwltah8y3u" path="res://src/ui/gold_label.gd" id="6_eow3j"]
+[ext_resource type="Script" uid="uid://cf2c1bvd1h25h" path="res://src/components/gold_spawner.gd" id="7_66r2r"]
+[ext_resource type="PackedScene" uid="uid://ffnmiyt7id57" path="res://src/entities/items/gold.tscn" id="8_aehps"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fc0e3"]
 texture = ExtResource("3_feb5d")
@@ -33,19 +35,6 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_fc0e3")
-
-[sub_resource type="GDScript" id="GDScript_ryrav"]
-script/source = "extends Node2D
-
-var gold = preload(\"res://src/entities/items/gold.tscn\")
-
-func _on_timer_timeout():
-	var goldTemp=gold.instantiate()
-	var RNG=RandomNumberGenerator.new()
-	var randint=randi_range(50, 500)
-	goldTemp.position=Vector2(randint, 530)
-	add_child(goldTemp)
-"
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_80nbo")
@@ -97,7 +86,8 @@ text = "GOLD"
 script = ExtResource("6_eow3j")
 
 [node name="Collectibles" type="Node2D" parent="."]
-script = SubResource("GDScript_ryrav")
+script = ExtResource("7_66r2r")
+gold_scene = ExtResource("8_aehps")
 
 [node name="Timer" type="Timer" parent="Collectibles"]
 wait_time = 3.0
