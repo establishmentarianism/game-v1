@@ -1,72 +1,116 @@
+class_name Mob
 extends CharacterBody2D
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+# --- Настройки ---
+@export var speed = 100
+@export var gravity_scale = 1.0
 
+# --- Состояние ---
 var chase = false
-var speed = 100
 var alive = true
 var target_pos: Vector2 = Vector2.ZERO
 
+var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
+# --- Узлы ---
+@onready var anim_sprite = $AnimatedSprite2D
+@onready var aggro_area: Area2D = $AggroArea
+# Имя узла "Dmage" сохранено как в сцене
+@onready var damage_area: Area2D = $Dmage
+@onready var death_area: Area2D = $MobDeath
+
 
 func _ready():
-	# Моб подписывается на глобальный сигнал
+	add_to_group("enemies")
+
+	# 1. Глобальные события (для обновления позиции игрока)
 	Events.player_moved.connect(_on_player_moved)
+
+	# 2. Ищем игрока сразу, чтобы не ждать первого движения
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		target_pos = player.global_position
+
+	# 3. БЕЗОПАСНОЕ ПОДКЛЮЧЕНИЕ СИГНАЛОВ
+	# Проверяем is_connected перед подключением, чтобы избежать ошибки "Already connected"
+
+	if aggro_area:
+		if not aggro_area.body_entered.is_connected(_on_aggro_area_body_entered):
+			aggro_area.body_entered.connect(_on_aggro_area_body_entered)
+
+		if not aggro_area.body_exited.is_connected(_on_aggro_area_body_exited):
+			aggro_area.body_exited.connect(_on_aggro_area_body_exited)
+	else:
+		printerr("CRITICAL: AggroArea не найдена в Mob!")
+
+	if damage_area:
+		if not damage_area.body_entered.is_connected(_on_damage_body_entered):
+			damage_area.body_entered.connect(_on_damage_body_entered)
+
+	if death_area:
+		if not death_area.body_entered.is_connected(_on_weak_spot_body_entered):
+			death_area.body_entered.connect(_on_weak_spot_body_entered)
 
 
 func _physics_process(delta):
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity.y += default_gravity * gravity_scale * delta
 
-	if alive and chase:
-		var direction = (target_pos - position).normalized()
-		velocity.x = direction.x * speed
-		$AnimatedSprite2D.flip_h = direction.x < 0
-		move_and_slide()
+	if alive:
+		if chase:
+			var direction_vector = target_pos - position
+			if direction_vector.length() > 10:
+				var direction = direction_vector.normalized()
+				velocity.x = direction.x * speed
+				anim_sprite.flip_h = direction.x < 0
+			else:
+				velocity.x = move_toward(velocity.x, 0, speed)
+		else:
+			velocity.x = move_toward(velocity.x, 0, speed)
 
-	# Если моб мертв или не преследует, он все равно должен падать (гравитация)
-	if not chase or not alive:
-		move_and_slide()
+	move_and_slide()
 
 
 func _on_player_moved(pos: Vector2):
 	target_pos = pos
 
 
-# --- Зоны обнаружения ---
+# --- Обработчики Зон ---
 
 
 func _on_aggro_area_body_entered(body):
-	# Проверка по группе надежнее
 	if body.is_in_group("player"):
-		print("Моб: Вижу игрока! Начинаю погоню.")
 		chase = true
+		# print("Mob: Вижу игрока!")
 
 
 func _on_aggro_area_body_exited(body):
 	if body.is_in_group("player"):
-		print("Моб: Игрок убежал.")
 		chase = false
 
 
-# --- Зоны Атаки ---
+func _on_weak_spot_body_entered(body):
+	if alive and body.is_in_group("player"):
+		body.velocity.y = -300
+		die()
 
 
-func _on_death_body_entered(body):
-	if body.is_in_group("player"):
-		print("Моб: Убит игроком сверху.")
-		body.velocity.y -= 200
-		death()
-
-
-func _on_player_death_body_entered(body):
-	if body.is_in_group("player"):
+func _on_damage_body_entered(body):
+	if alive and body.is_in_group("player"):
 		if body.has_method("take_damage"):
-			body.take_damage(40)
-			print("Моб: Кусь! Нанес урон.")
-		death()
+			body.take_damage(20)
 
 
-func death():
+func die():
+	if not alive:
+		return
 	alive = false
-	print("Моб: Умираю...")
-	queue_free()
+
+	set_physics_process(false)
+	$CollisionShape2D.set_deferred("disabled", true)
+	if damage_area:
+		damage_area.set_deferred("monitoring", false)
+
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(queue_free)
