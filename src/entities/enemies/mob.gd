@@ -4,13 +4,14 @@ extends CharacterBody2D
 # --- Настройки ---
 @export var speed = 100
 @export var gravity_scale = 1.0
-# Добавили ускорение для плавности (чем меньше число, тем больше моба "заносит")
 @export var acceleration = 800.0
 @export var friction = 1000.0
 
 # --- Компоненты ---
 @export var movement_behavior: MovementBehavior
 @export var soft_collision: SoftCollision
+@export var health_component: HealthComponent
+@export var hurtbox_component: HurtboxComponent
 
 # --- Состояние ---
 var chase = false
@@ -21,57 +22,94 @@ var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # --- Узлы ---
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var aggro_area: Area2D = $AggroArea
-@onready var damage_area: Area2D = $Dmage
-@onready var death_area: Area2D = $MobDeath
 
 
 func _ready():
 	add_to_group("enemies")
 	Events.player_moved.connect(_on_player_moved)
 
+	# Автопоиск компонентов (если забыли назначить в инспекторе)
 	if not movement_behavior:
 		movement_behavior = get_node_or_null("ChaseBehavior")
 	if not soft_collision:
 		soft_collision = get_node_or_null("SoftCollision")
+	if not health_component:
+		health_component = get_node_or_null("HealthComponent")
+	if not hurtbox_component:
+		hurtbox_component = get_node_or_null("HurtboxComponent")
+
+	# Настройка здоровья
+	if health_component:
+		health_component.died.connect(die)
+		# Привязываем Hurtbox к Health, если это не сделано в инспекторе
+		if hurtbox_component and not hurtbox_component.health_component:
+			hurtbox_component.health_component = health_component
+			# Добавляем реакцию на урон (мигание)
+			health_component.health_changed.connect(func(_current): _blink_effect())
 
 	_connect_signals_safely()
 
 
 func _physics_process(delta):
-	# 1. Гравитация
 	if not is_on_floor():
 		velocity.y += default_gravity * gravity_scale * delta
 
 	if alive:
-		# Считаем ЖЕЛАЕМУЮ скорость, а не присваиваем её сразу
 		var target_velocity_x = 0.0
 
-		# А. Логика преследования
+		# 1. Преследование
 		if chase and movement_behavior:
 			var move_vec = movement_behavior.get_velocity(global_position, target_pos, speed)
 			target_velocity_x = move_vec.x
-
 			if target_velocity_x != 0:
 				anim_sprite.flip_h = target_velocity_x < 0
 
-		# Б. Логика расталкивания (Мягкая)
+		# 2. Расталкивание (Soft Collision)
 		if soft_collision and soft_collision.is_colliding():
 			var push_vector = soft_collision.get_push_vector()
-			# Просто добавляем влияние толчка к желаемой скорости
 			target_velocity_x += push_vector.x
 
-		# В. Плавное применение скорости (СГЛАЖИВАНИЕ)
-		# Вместо velocity.x = target_velocity_x, мы двигаемся к ней постепенно
+		# 3. Движение
 		if target_velocity_x != 0:
 			velocity.x = move_toward(velocity.x, target_velocity_x, acceleration * delta)
 		else:
-			# Торможение (трение)
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 
 	move_and_slide()
 
 
-# ... Остальной код (сигналы) без изменений ...
+func die():
+	if not alive:
+		return
+	alive = false
+
+	# Отключаем физику и хитбоксы
+	set_physics_process(false)
+	$CollisionShape2D.set_deferred("disabled", true)
+
+	# Отключаем возможность получать и наносить урон
+	if hurtbox_component:
+		hurtbox_component.set_deferred("monitorable", false)
+	# Если есть Hitbox (урон телом), отключаем его
+	var hitbox = get_node_or_null("HitboxComponent")
+	if hitbox:
+		hitbox.set_deferred("monitoring", false)
+
+	# Анимация исчезновения
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(queue_free)
+
+
+func _blink_effect():
+	var tween = create_tween()
+	tween.tween_property(anim_sprite, "modulate", Color.RED, 0.1)
+	tween.tween_property(anim_sprite, "modulate", Color.WHITE, 0.1)
+
+
+# --- Сигналы ---
+
+
 func _on_player_moved(pos: Vector2):
 	target_pos = pos
 
@@ -82,12 +120,6 @@ func _connect_signals_safely():
 			aggro_area.body_entered.connect(_on_aggro_area_body_entered)
 		if not aggro_area.body_exited.is_connected(_on_aggro_area_body_exited):
 			aggro_area.body_exited.connect(_on_aggro_area_body_exited)
-	if damage_area:
-		if not damage_area.body_entered.is_connected(_on_damage_body_entered):
-			damage_area.body_entered.connect(_on_damage_body_entered)
-	if death_area:
-		if not death_area.body_entered.is_connected(_on_weak_spot_body_entered):
-			death_area.body_entered.connect(_on_weak_spot_body_entered)
 
 
 func _on_aggro_area_body_entered(body):
@@ -98,26 +130,3 @@ func _on_aggro_area_body_entered(body):
 func _on_aggro_area_body_exited(body):
 	if body.is_in_group("player"):
 		chase = false
-
-
-func _on_weak_spot_body_entered(body):
-	if alive and body.is_in_group("player"):
-		body.velocity.y = -300
-		die()
-
-
-func _on_damage_body_entered(body):
-	if alive and body.is_in_group("player"):
-		if body.has_method("take_damage"):
-			body.take_damage(20)
-
-
-func die():
-	if not alive:
-		return
-	alive = false
-	set_physics_process(false)
-	$CollisionShape2D.set_deferred("disabled", true)
-	if damage_area:
-		damage_area.set_deferred("monitoring", false)
-	queue_free()

@@ -1,16 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://d01l7a5nwisbl"]
+[gd_scene load_steps=14 format=3 uid="uid://d01l7a5nwisbl"]
 
 [ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://src/entities/enemies/mob.gd" id="1_nokgg"]
 [ext_resource type="Texture2D" uid="uid://myh163633rgk" path="res://assets/textures/enemies/ghost.png" id="2_e2525"]
 [ext_resource type="Script" uid="uid://bq8o0ciageuq5" path="res://src/components/soft_collision.gd" id="3_e2525"]
 [ext_resource type="Script" uid="uid://bm84nku2v4lq7" path="res://src/ai/chase_behavior.gd" id="4_al4qn"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p11y5"]
-radius = 8.333333
-height = 33.333332
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_s5nov"]
-radius = 285.66144
+[ext_resource type="Script" uid="uid://go4ph1hdd2ox" path="res://src/components/health_component.gd" id="5_0vfmw"]
+[ext_resource type="Script" uid="uid://d1c4ebo8avv0l" path="res://src/components/hurtbox_component.gd" id="6_wfno0"]
+[ext_resource type="Script" uid="uid://dv6kdc3qufbkj" path="res://src/components/hitbox_component.gd" id="7_8ybau"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b3mxk"]
 animations = [{
@@ -23,14 +19,23 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nokgg"]
-size = Vector2(7.3333335, 1.833333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubaqv"]
-size = Vector2(12.222221, 6.666667)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p11y5"]
+radius = 8.333333
+height = 33.333332
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_smxic"]
 radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0vfmw"]
+radius = 4.666667
+height = 14.666667
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wfno0"]
+radius = 6.0
+height = 13.333334
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s5nov"]
+radius = 285.66144
 
 [node name="Mob" type="CharacterBody2D" node_paths=PackedStringArray("movement_behavior", "soft_collision")]
 scale = Vector2(1.5, 1.5)
@@ -39,34 +44,18 @@ script = ExtResource("1_nokgg")
 movement_behavior = NodePath("ChaseBehavior")
 soft_collision = NodePath("SoftCollision")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.4, 0.4)
-shape = SubResource("CapsuleShape2D_p11y5")
-
-[node name="AggroArea" type="Area2D" parent="."]
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
-scale = Vector2(0.6, 0.6)
-shape = SubResource("CircleShape2D_s5nov")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -1.1920929e-07)
 scale = Vector2(0.09973403, 0.09973404)
 sprite_frames = SubResource("SpriteFrames_b3mxk")
 
-[node name="MobDeath" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.6666667, -2)
+scale = Vector2(0.4, 0.4)
+shape = SubResource("CapsuleShape2D_p11y5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MobDeath"]
-position = Vector2(0.33333337, -7.5833335)
-shape = SubResource("RectangleShape2D_nokgg")
-
-[node name="Dmage" type="Area2D" parent="."]
-scale = Vector2(1.2, 1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Dmage"]
-position = Vector2(0, -0.6666667)
-shape = SubResource("RectangleShape2D_ubaqv")
+[node name="ChaseBehavior" type="Node" parent="."]
+script = ExtResource("4_al4qn")
 
 [node name="SoftCollision" type="Area2D" parent="."]
 collision_layer = 4
@@ -75,12 +64,42 @@ script = ExtResource("3_e2525")
 push_force = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+position = Vector2(0, -4.6666665)
 shape = SubResource("CircleShape2D_smxic")
 
-[node name="ChaseBehavior" type="Node" parent="."]
-script = ExtResource("4_al4qn")
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("5_0vfmw")
+metadata/_custom_type_script = "uid://go4ph1hdd2ox"
+
+[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("6_wfno0")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://d1c4ebo8avv0l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_0vfmw")
+
+[node name="HitboxComponent" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("7_8ybau")
+damage = 20
+metadata/_custom_type_script = "uid://dv6kdc3qufbkj"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_wfno0")
+
+[node name="AggroArea" type="Area2D" parent="."]
+visible = false
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+scale = Vector2(0.6, 0.6)
+shape = SubResource("CircleShape2D_s5nov")
 
 [connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]
-[connection signal="body_entered" from="MobDeath" to="." method="_on_death_body_entered"]
-[connection signal="body_entered" from="Dmage" to="." method="_on_player_death_body_entered"]

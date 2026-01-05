@@ -16,10 +16,15 @@ func _ready():
 
 
 func take_damage(amount: int):
+	# ЗАЩИТА: Если здоровья уже нет, игнорируем урон
+	if current_health <= 0:
+		return
+
 	current_health -= amount
 	emit_health_signal()
 
 	if current_health <= 0:
+		current_health = 0  # Чтобы не показывать отрицательные числа
 		died.emit()
 
 
