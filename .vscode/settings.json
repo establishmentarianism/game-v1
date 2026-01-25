@@ -27,5 +27,6 @@
       "tooltip": "Запустить интеграционные и юнит-тесты (.test.gd) в фоновом режиме",
       "color": "#afff00"
     }
-  ]
+  ],
+  "godotTools.editorPath.godot4": "c:\\Users\\ABD\\Downloads\\Godot_v4.5.1-stable_win64.exe\\Godot_v4.5.1-stable_win64.exe"
 }

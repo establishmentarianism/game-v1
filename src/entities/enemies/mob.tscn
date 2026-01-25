@@ -74,6 +74,7 @@ metadata/_custom_type_script = "uid://go4ph1hdd2ox"
 [node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
 collision_layer = 4
 collision_mask = 0
+priority = 1
 script = ExtResource("6_wfno0")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://d1c4ebo8avv0l"

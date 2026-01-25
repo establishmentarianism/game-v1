@@ -15,7 +15,7 @@ const JUMP_VELOCITY = -400.0
 # --- Состояние ---
 var gold = 0
 var is_attacking = false
-var is_dying = false  # Флаг, предотвращающий любые действия после смерти
+var is_dying = false # Флаг, предотвращающий любые действия после смерти
 
 @onready var anim = $AnimatedSprite2D
 
@@ -178,5 +178,5 @@ func _setup_components():
 		sword_hitbox = get_node_or_null("SwordHitbox")
 
 	if sword_hitbox:
-		sword_hitbox.monitoring = false  # Выключен по умолчанию
+		sword_hitbox.monitoring = false # Выключен по умолчанию
 		sword_hitbox.monitorable = false

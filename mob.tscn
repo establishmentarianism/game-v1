@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bnoxkfvbm8wf7"]
 
-[ext_resource type="Script" path="res://mob.gd" id="1_nokgg"]
-[ext_resource type="Texture2D" path="res://Без названия.jpg" id="2_ubaqv"]
+[ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://src/entities/enemies/mob.gd" id="1_nokgg"]
+[ext_resource type="Texture2D" uid="uid://myh163633rgk" path="res://assets/textures/enemies/ghost.png" id="2_ubaqv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p11y5"]
 radius = 8.333333

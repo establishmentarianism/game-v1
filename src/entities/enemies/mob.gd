@@ -23,7 +23,6 @@ var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var aggro_area: Area2D = $AggroArea
 
-
 func _ready():
 	add_to_group("enemies")
 	Events.player_moved.connect(_on_player_moved)
