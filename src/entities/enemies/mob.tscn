@@ -34,8 +34,8 @@ height = 14.666667
 radius = 6.0
 height = 13.333334
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s5nov"]
-radius = 285.66144
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vfmw"]
+size = Vector2(250, 95)
 
 [node name="Mob" type="CharacterBody2D" node_paths=PackedStringArray("movement_behavior", "soft_collision")]
 scale = Vector2(1.5, 1.5)
@@ -95,12 +95,12 @@ position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_wfno0")
 
 [node name="AggroArea" type="Area2D" parent="."]
-visible = false
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+position = Vector2(-0.6666667, -23.333334)
 scale = Vector2(0.6, 0.6)
-shape = SubResource("CircleShape2D_s5nov")
+shape = SubResource("RectangleShape2D_0vfmw")
 
 [connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]
