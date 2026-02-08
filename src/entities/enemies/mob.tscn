@@ -35,7 +35,7 @@ radius = 6.0
 height = 13.333334
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vfmw"]
-size = Vector2(250, 95)
+size = Vector2(250, 96)
 
 [node name="Mob" type="CharacterBody2D" node_paths=PackedStringArray("movement_behavior", "soft_collision")]
 scale = Vector2(1.5, 1.5)
@@ -98,7 +98,7 @@ shape = SubResource("CapsuleShape2D_wfno0")
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
-position = Vector2(-0.6666667, -23.333334)
+position = Vector2(-0.6666667, -23.75)
 scale = Vector2(0.6, 0.6)
 shape = SubResource("RectangleShape2D_0vfmw")
 

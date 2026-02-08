@@ -22,7 +22,9 @@ var default_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 # --- Узлы ---
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var aggro_area: Area2D = $AggroArea
-
+var stats = {
+	'kills': 0,
+}
 func _ready():
 	add_to_group("enemies")
 	Events.player_moved.connect(_on_player_moved)
@@ -82,6 +84,7 @@ func die():
 		return
 	alive = false
 
+	stats['kills'] += 1
 	# Отключаем физику и хитбоксы
 	set_physics_process(false)
 	$CollisionShape2D.set_deferred("disabled", true)
@@ -96,7 +99,7 @@ func die():
 
 	# Анимация исчезновения
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	tween.tween_property(self , "modulate:a", 0.0, 0.5)
 	tween.tween_callback(queue_free)
 
 
