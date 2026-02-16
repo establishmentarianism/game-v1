@@ -4,7 +4,7 @@ extends CharacterBody2D
 # --- Настройки ---
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
+var killed = 0
 # --- Компоненты ---
 @export var health_component: HealthComponent
 # HitboxComponent (Меч) - нужно добавить в сцену игрока

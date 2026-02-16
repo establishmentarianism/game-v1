@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsp37j5dpi64f"]
+[gd_scene load_steps=3 format=3 uid="uid://dsp37j5dpi64f"]
 
 [ext_resource type="Script" uid="uid://bva5e2gincuqf" path="res://src/screens/menu.gd" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://ds7xx7wt8tdy0" path="res://src/screens/clickerclick.gd" id="2_x0ktp"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_lti8b")
@@ -27,10 +28,14 @@ offset_bottom = 8.0
 text = "click"
 
 [node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 1.0
+offset_top = 30.0
+offset_right = 41.0
+offset_bottom = 53.0
+text = "0"
+script = ExtResource("2_x0ktp")
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
 [connection signal="button_down" from="Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_down" from="Button3" to="." method="_on_button_3_button_down"]
+[connection signal="button_down" from="Button3" to="Label" method="_on_button_3_button_down"]
