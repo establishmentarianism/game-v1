@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmovocqke1175"
-valid=false
+uid="uid://dcd5woxxe4qo7"
+path="res://.godot/imported/coins.png-76c456bf50243df991b2da01bb0fd24f.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/textures/environment/purifiedtileset.bmp"
+source_file="res://src/entities/items/coins.png"
+dest_files=["res://.godot/imported/coins.png-76c456bf50243df991b2da01bb0fd24f.ctex"]
 
 [params]
 

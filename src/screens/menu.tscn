@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsp37j5dpi64f"]
+[gd_scene format=3 uid="uid://dsp37j5dpi64f"]
 
 [ext_resource type="Script" uid="uid://bva5e2gincuqf" path="res://src/screens/menu.gd" id="1_lti8b"]
 [ext_resource type="Script" uid="uid://ds7xx7wt8tdy0" path="res://src/screens/clickerclick.gd" id="2_x0ktp"]
 
-[node name="Menu" type="Node2D"]
+[node name="MainMenu" type="Node2D" unique_id=481024042]
 script = ExtResource("1_lti8b")
 
-[node name="Button" type="Button" parent="."]
+[node name="Play" type="Button" parent="." unique_id=1955377066]
 offset_left = 449.0
 offset_top = 64.0
 offset_right = 676.0
@@ -14,7 +14,7 @@ offset_bottom = 227.0
 theme_override_font_sizes/font_size = 50
 text = "Play"
 
-[node name="Button2" type="Button" parent="."]
+[node name="Quit" type="Button" parent="." unique_id=111330904]
 offset_left = 449.0
 offset_top = 286.0
 offset_right = 676.0
@@ -22,12 +22,12 @@ offset_bottom = 449.0
 theme_override_font_sizes/font_size = 50
 text = "QUIT"
 
-[node name="Button3" type="Button" parent="."]
+[node name="Click" type="Button" parent="." unique_id=978882247]
 offset_right = 8.0
 offset_bottom = 8.0
 text = "click"
 
-[node name="Label" type="Label" parent="."]
+[node name="Counter" type="Label" parent="." unique_id=1514028949]
 offset_left = 1.0
 offset_top = 30.0
 offset_right = 41.0
@@ -35,7 +35,7 @@ offset_bottom = 53.0
 text = "0"
 script = ExtResource("2_x0ktp")
 
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
-[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
-[connection signal="button_down" from="Button2" to="." method="_on_button_2_button_down"]
-[connection signal="button_down" from="Button3" to="Label" method="_on_button_3_button_down"]
+[connection signal="button_down" from="Play" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="Play" to="." method="_on_button_mouse_entered"]
+[connection signal="button_down" from="Quit" to="." method="_on_button_2_button_down"]
+[connection signal="button_down" from="Click" to="Counter" method="_on_button_3_button_down"]
