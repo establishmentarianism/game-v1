@@ -49,7 +49,8 @@ func _ready():
 			health_component.health_changed.connect(func(_current): _blink_effect())
 
 	_connect_signals_safely()
-
+	if health_component.health_changed:
+		_blink_effect()
 
 func _physics_process(delta):
 	if not is_on_floor():

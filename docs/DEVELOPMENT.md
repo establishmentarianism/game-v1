@@ -7,10 +7,10 @@
 Для работы скриптов автоматизации вам понадобятся:
 
 1.  **Python 3.10+**
-    - Обязательно добавьте в PATH при установке.
-    - Используется для работы инструментов `gdtoolkit` и менеджера `uv`.
+	- Обязательно добавьте в PATH при установке.
+	- Используется для работы инструментов `gdtoolkit` и менеджера `uv`.
 2.  **PowerShell 7 (Core)**
-    - Скрипты написаны для `pwsh`. Старый Windows PowerShell может работать некорректно.
+	- Скрипты написаны для `pwsh`. Старый Windows PowerShell может работать некорректно.
 3.  **VS Code + Расширение "Godot Tools"**
 
 ---
@@ -50,8 +50,8 @@
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
   "[gdscript]": {
-    "editor.insertSpaces": false, // Godot требует TAB
-    "editor.tabSize": 4
+	"editor.insertSpaces": false, // Godot требует TAB
+	"editor.tabSize": 4
   },
 
   // ---------------------------------------------------------
@@ -62,11 +62,11 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.expand": false,
   "explorer.fileNesting.patterns": {
-    "*.gd": "$(capture).gd.uid, $(capture).tscn, $(capture).test.gd",
-    "*.tscn": "$(capture).tscn.uid",
-    "*.png": "$(capture).png.import",
-    "*.wav": "$(capture).wav.import",
-    "*.ogg": "$(capture).ogg.import"
+	"*.gd": "$(capture).gd.uid, $(capture).tscn, $(capture).test.gd",
+	"*.tscn": "$(capture).tscn.uid",
+	"*.png": "$(capture).png.import",
+	"*.wav": "$(capture).wav.import",
+	"*.ogg": "$(capture).ogg.import"
   }
 }
 ```
