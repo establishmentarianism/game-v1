@@ -1,12 +1,35 @@
 [gd_scene format=3 uid="uid://dccihsti2d3ve"]
 
 [ext_resource type="Texture2D" uid="uid://cagka7ur7e10q" path="res://assets/textures/enemies/fatghost.png" id="1_4jkxp"]
+[ext_resource type="Script" uid="uid://begy64cdv4rvd" path="res://src/entities/enemies/fatmob.gd" id="1_f4f7k"]
+[ext_resource type="Script" uid="uid://bm84nku2v4lq7" path="res://src/ai/chase_behavior.gd" id="2_6ddni"]
+[ext_resource type="Script" uid="uid://go4ph1hdd2ox" path="res://src/components/health_component.gd" id="3_ttp22"]
+[ext_resource type="Script" uid="uid://d1c4ebo8avv0l" path="res://src/components/hurtbox_component.gd" id="4_hgv74"]
+[ext_resource type="Script" uid="uid://dv6kdc3qufbkj" path="res://src/components/hitbox_component.gd" id="5_f4f7k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ddni"]
 radius = 18.0
 height = 60.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1223650205]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y7evy"]
+radius = 19.0
+height = 60.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iigfx"]
+size = Vector2(62, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4f7k"]
+size = Vector2(24, 68)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hgv74"]
+size = Vector2(276, 127)
+
+[node name="fatmob" type="CharacterBody2D" unique_id=1223650205]
+script = ExtResource("1_f4f7k")
+speed = null
+gravity_scale = null
+acceleration = null
+friction = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=370675962]
 shape = SubResource("CapsuleShape2D_6ddni")
@@ -15,3 +38,46 @@ shape = SubResource("CapsuleShape2D_6ddni")
 texture_filter = 1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_4jkxp")
+
+[node name="ChaseBehavior" type="Node" parent="." unique_id=1899686541]
+script = ExtResource("2_6ddni")
+metadata/_custom_type_script = "uid://bm84nku2v4lq7"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=278194305]
+script = ExtResource("3_ttp22")
+metadata/_custom_type_script = "uid://go4ph1hdd2ox"
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1980903656 node_paths=PackedStringArray("health_component")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_hgv74")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://d1c4ebo8avv0l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1555721566]
+shape = SubResource("CapsuleShape2D_y7evy")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=517885372]
+collision_layer = 0
+collision_mask = 10
+script = ExtResource("5_f4f7k")
+damage = 25
+metadata/_custom_type_script = "uid://dv6kdc3qufbkj"
+
+[node name="HorizCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=242046113]
+shape = SubResource("RectangleShape2D_iigfx")
+
+[node name="VertCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=122049526]
+shape = SubResource("RectangleShape2D_f4f7k")
+
+[node name="AggroArea" type="Area2D" parent="." unique_id=889417033]
+position = Vector2(-1, -1)
+collision_layer = 4
+collision_mask = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea" unique_id=1406748397]
+position = Vector2(0, -33.5)
+shape = SubResource("RectangleShape2D_hgv74")
+
+[connection signal="body_entered" from="AggroArea" to="." method="_on_aggro_area_body_entered"]
+[connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]

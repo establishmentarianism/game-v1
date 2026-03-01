@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d01l7a5nwisbl"]
+[gd_scene format=3 uid="uid://d01l7a5nwisbl"]
 
 [ext_resource type="Script" uid="uid://b36twrslinc2f" path="res://src/entities/enemies/mob.gd" id="1_nokgg"]
 [ext_resource type="Texture2D" uid="uid://myh163633rgk" path="res://assets/textures/enemies/ghost.png" id="2_e2525"]
@@ -37,41 +37,41 @@ height = 13.333334
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vfmw"]
 size = Vector2(250, 96)
 
-[node name="Mob" type="CharacterBody2D" node_paths=PackedStringArray("movement_behavior", "soft_collision")]
+[node name="Mob" type="CharacterBody2D" unique_id=1154617504 node_paths=PackedStringArray("movement_behavior", "soft_collision")]
 scale = Vector2(1.5, 1.5)
 collision_layer = 4
 script = ExtResource("1_nokgg")
 movement_behavior = NodePath("ChaseBehavior")
 soft_collision = NodePath("SoftCollision")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1349349173]
 position = Vector2(0, -1.1920929e-07)
 scale = Vector2(0.09973403, 0.09973404)
 sprite_frames = SubResource("SpriteFrames_b3mxk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1877690264]
 position = Vector2(2.6666667, -2)
 scale = Vector2(0.4, 0.4)
 shape = SubResource("CapsuleShape2D_p11y5")
 
-[node name="ChaseBehavior" type="Node" parent="."]
+[node name="ChaseBehavior" type="Node" parent="." unique_id=655703204]
 script = ExtResource("4_al4qn")
 
-[node name="SoftCollision" type="Area2D" parent="."]
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1060786663]
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("3_e2525")
 push_force = 50.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=441253773]
 position = Vector2(0, -4.6666665)
 shape = SubResource("CircleShape2D_smxic")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=1200100898]
 script = ExtResource("5_0vfmw")
 metadata/_custom_type_script = "uid://go4ph1hdd2ox"
 
-[node name="HurtboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1551460348 node_paths=PackedStringArray("health_component")]
 collision_layer = 4
 collision_mask = 0
 priority = 1
@@ -79,25 +79,25 @@ script = ExtResource("6_wfno0")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://d1c4ebo8avv0l"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=95067720]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_0vfmw")
 
-[node name="HitboxComponent" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=844335620]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 10
 script = ExtResource("7_8ybau")
 damage = 20
 metadata/_custom_type_script = "uid://dv6kdc3qufbkj"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1960157327]
 position = Vector2(0, -2)
 shape = SubResource("CapsuleShape2D_wfno0")
 
-[node name="AggroArea" type="Area2D" parent="."]
-collision_mask = 3
+[node name="AggroArea" type="Area2D" parent="." unique_id=842307896]
+collision_mask = 11
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea" unique_id=1262666365]
 position = Vector2(-0.6666667, -23.75)
 scale = Vector2(0.6, 0.6)
 shape = SubResource("RectangleShape2D_0vfmw")

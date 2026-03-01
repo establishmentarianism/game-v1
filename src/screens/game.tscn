@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cf2c1bvd1h25h" path="res://src/components/gold_spawner.gd" id="7_66r2r"]
 [ext_resource type="PackedScene" uid="uid://ffnmiyt7id57" path="res://src/entities/items/gold.tscn" id="8_aehps"]
 [ext_resource type="Texture2D" uid="uid://i2ts8bhm6syb" path="res://assets/textures/environment/PurifiedTileSet.png" id="9_aehps"]
+[ext_resource type="PackedScene" uid="uid://dccihsti2d3ve" path="res://src/entities/enemies/fatmob.tscn" id="10_yodwr"]
 
 [sub_resource type="GDScript" id="GDScript_66r2r"]
 
@@ -92,7 +93,7 @@ script = ExtResource("1_80nbo")
 [node name="Player" type="Node2D" parent="." unique_id=2015108757]
 
 [node name="Player" parent="Player" unique_id=1211681329 instance=ExtResource("2_e2o6t")]
-position = Vector2(700, -66)
+position = Vector2(493, -70)
 
 [node name="Mobs" type="Node2D" parent="." unique_id=1663281385]
 
@@ -163,8 +164,7 @@ script = ExtResource("7_66r2r")
 gold_scene = ExtResource("8_aehps")
 
 [node name="GoldSpawner" type="Timer" parent="Collectibles" unique_id=1368531126]
-process_callback = 0
-wait_time = 3.154
+wait_time = 3.024
 autostart = true
 
 [node name="Hint" type="Label" parent="." unique_id=962210339]
@@ -194,5 +194,8 @@ offset_top = 129.0
 offset_right = 406.0
 offset_bottom = 152.0
 text = "Use your enemy"
+
+[node name="CharacterBody2D" parent="." unique_id=1223650205 instance=ExtResource("10_yodwr")]
+position = Vector2(380, -64)
 
 [connection signal="timeout" from="Collectibles/GoldSpawner" to="Collectibles" method="_on_timer_timeout"]
