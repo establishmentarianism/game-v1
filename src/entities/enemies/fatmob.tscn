@@ -16,7 +16,7 @@ radius = 19.0
 height = 60.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iigfx"]
-size = Vector2(62, 24)
+size = Vector2(50, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4f7k"]
 size = Vector2(24, 68)
@@ -24,12 +24,13 @@ size = Vector2(24, 68)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgv74"]
 size = Vector2(276, 127)
 
-[node name="fatmob" type="CharacterBody2D" unique_id=1223650205]
+[node name="fatmob" type="CharacterBody2D" unique_id=1223650205 node_paths=PackedStringArray("movement_behavior", "health_component", "hurtbox_component")]
 script = ExtResource("1_f4f7k")
-speed = null
-gravity_scale = null
-acceleration = null
-friction = null
+speed = 80.0
+gravity_scale = 1.2
+movement_behavior = NodePath("ChaseBehavior")
+health_component = NodePath("HealthComponent")
+hurtbox_component = NodePath("HurtboxComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=370675962]
 shape = SubResource("CapsuleShape2D_6ddni")
@@ -45,6 +46,7 @@ metadata/_custom_type_script = "uid://bm84nku2v4lq7"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=278194305]
 script = ExtResource("3_ttp22")
+max_health = 140
 metadata/_custom_type_script = "uid://go4ph1hdd2ox"
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1980903656 node_paths=PackedStringArray("health_component")]

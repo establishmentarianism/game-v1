@@ -37,12 +37,14 @@ height = 13.333334
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0vfmw"]
 size = Vector2(250, 96)
 
-[node name="Mob" type="CharacterBody2D" unique_id=1154617504 node_paths=PackedStringArray("movement_behavior", "soft_collision")]
+[node name="Mob" type="CharacterBody2D" unique_id=1154617504 node_paths=PackedStringArray("movement_behavior", "soft_collision", "health_component", "hurtbox_component")]
 scale = Vector2(1.5, 1.5)
 collision_layer = 4
 script = ExtResource("1_nokgg")
 movement_behavior = NodePath("ChaseBehavior")
 soft_collision = NodePath("SoftCollision")
+health_component = NodePath("HealthComponent")
+hurtbox_component = NodePath("HurtboxComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1349349173]
 position = Vector2(0, -1.1920929e-07)
