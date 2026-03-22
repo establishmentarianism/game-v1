@@ -26,7 +26,7 @@ var stats = {
 	'kills': 0,
 }
 func _ready():
-	add_to_group("enemies")
+	add_to_group("ghosts")
 	Events.player_moved.connect(_on_player_moved)
 
 	# Автопоиск компонентов (если забыли назначить в инспекторе)

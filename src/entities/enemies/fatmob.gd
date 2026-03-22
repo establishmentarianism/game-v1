@@ -36,7 +36,7 @@ func _on_aggro_area_body_entered(body: Node2D) -> void:
 		chase = true
 
 func _ready():
-	add_to_group("enemies")
+	add_to_group("ghosts")
 	Events.player_moved.connect(_on_player_moved)
 
 	# Автопоиск компонентов

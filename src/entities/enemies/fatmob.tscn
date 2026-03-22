@@ -25,6 +25,7 @@ size = Vector2(24, 68)
 size = Vector2(276, 127)
 
 [node name="fatmob" type="CharacterBody2D" unique_id=1223650205 node_paths=PackedStringArray("movement_behavior", "health_component", "hurtbox_component")]
+collision_layer = 4
 script = ExtResource("1_f4f7k")
 speed = 80.0
 gravity_scale = 1.2

@@ -141,63 +141,64 @@ script = ExtResource("1_80nbo")
 [node name="Player" type="Node2D" parent="." unique_id=2015108757]
 
 [node name="Player" parent="Player" unique_id=1211681329 instance=ExtResource("2_e2o6t")]
-position = Vector2(493, -70)
+position = Vector2(3117, -73)
 
-[node name="Mobs" type="Node2D" parent="." unique_id=1663281385]
+[node name="Ghosts" type="Node2D" parent="." unique_id=1663281385]
 
-[node name="Mob" parent="Mobs" unique_id=1309203191 instance=ExtResource("4_fc0e3")]
+[node name="Mob" parent="Ghosts" unique_id=1309203191 instance=ExtResource("4_fc0e3")]
 position = Vector2(375, 506)
 
-[node name="Mob2" parent="Mobs" unique_id=935095960 instance=ExtResource("4_fc0e3")]
+[node name="Mob2" parent="Ghosts" unique_id=935095960 instance=ExtResource("4_fc0e3")]
 position = Vector2(632, 519)
 
-[node name="Mob3" parent="Mobs" unique_id=1861440889 instance=ExtResource("4_fc0e3")]
+[node name="Mob3" parent="Ghosts" unique_id=1861440889 instance=ExtResource("4_fc0e3")]
 position = Vector2(836, 517)
 
-[node name="Mob4" parent="Mobs" unique_id=1389776458 instance=ExtResource("4_fc0e3")]
+[node name="Mob4" parent="Ghosts" unique_id=1389776458 instance=ExtResource("4_fc0e3")]
 position = Vector2(972.00006, 522)
 
-[node name="Mob5" parent="Mobs" unique_id=1994484447 instance=ExtResource("4_fc0e3")]
+[node name="Mob5" parent="Ghosts" unique_id=1994484447 instance=ExtResource("4_fc0e3")]
 position = Vector2(1187, 486)
 
-[node name="Mob6" parent="Mobs" unique_id=254897911 instance=ExtResource("4_fc0e3")]
+[node name="Mob6" parent="Ghosts" unique_id=254897911 instance=ExtResource("4_fc0e3")]
 position = Vector2(1404, 493.00003)
 
-[node name="Mob7" parent="Mobs" unique_id=1726752322 instance=ExtResource("4_fc0e3")]
+[node name="Mob7" parent="Ghosts" unique_id=1726752322 instance=ExtResource("4_fc0e3")]
 position = Vector2(1323, 487)
 
-[node name="Mob8" parent="Mobs" unique_id=401402306 instance=ExtResource("4_fc0e3")]
+[node name="Mob8" parent="Ghosts" unique_id=401402306 instance=ExtResource("4_fc0e3")]
 position = Vector2(1186, 340)
 
-[node name="Mob9" parent="Mobs" unique_id=278198682 instance=ExtResource("4_fc0e3")]
+[node name="Mob9" parent="Ghosts" unique_id=278198682 instance=ExtResource("4_fc0e3")]
 position = Vector2(1210, 338)
 
-[node name="Mob10" parent="Mobs" unique_id=757958714 instance=ExtResource("4_fc0e3")]
+[node name="Mob10" parent="Ghosts" unique_id=757958714 instance=ExtResource("4_fc0e3")]
 position = Vector2(1193, 316)
 
-[node name="Mob11" parent="Mobs" unique_id=1769402557 instance=ExtResource("4_fc0e3")]
+[node name="Mob11" parent="Ghosts" unique_id=1769402557 instance=ExtResource("4_fc0e3")]
 position = Vector2(1235, 341)
 
-[node name="Mob13" parent="Mobs" unique_id=163732847 instance=ExtResource("4_fc0e3")]
+[node name="Mob13" parent="Ghosts" unique_id=163732847 instance=ExtResource("4_fc0e3")]
 position = Vector2(138, 280)
 
-[node name="Mob12" parent="Mobs" unique_id=1232268882 instance=ExtResource("4_fc0e3")]
+[node name="Mob12" parent="Ghosts" unique_id=1232268882 instance=ExtResource("4_fc0e3")]
 position = Vector2(342, 215)
 
-[node name="Fmob" parent="Mobs" unique_id=1223650205 instance=ExtResource("10_yodwr")]
+[node name="Fmob" parent="Ghosts" unique_id=1223650205 instance=ExtResource("10_yodwr")]
 position = Vector2(359, -95)
+collision_layer = 4
 
-[node name="fatmob" parent="Mobs" unique_id=965054738 instance=ExtResource("10_yodwr")]
+[node name="fatmob" parent="Ghosts" unique_id=965054738 instance=ExtResource("10_yodwr")]
 position = Vector2(1815, -67)
+collision_layer = 4
 
-[node name="fatmob2" parent="Mobs" unique_id=452444790 instance=ExtResource("10_yodwr")]
+[node name="fatmob2" parent="Ghosts" unique_id=452444790 instance=ExtResource("10_yodwr")]
 position = Vector2(2152, -71)
+collision_layer = 4
 
-[node name="fatmob3" parent="Mobs" unique_id=1144001871 instance=ExtResource("10_yodwr")]
+[node name="fatmob3" parent="Ghosts" unique_id=1144001871 instance=ExtResource("10_yodwr")]
 position = Vector2(2268, -72)
-
-[node name="secretary" parent="Mobs" unique_id=1794300365 instance=ExtResource("12_8jo15")]
-position = Vector2(2626, -146)
+collision_layer = 4
 
 [node name="Stats" type="CanvasLayer" parent="." unique_id=749872115]
 
@@ -249,11 +250,12 @@ tile_set = SubResource("TileSet_e2o6t")
 
 [node name="WhitePlus" type="TileMapLayer" parent="Tiles" unique_id=558395879]
 texture_filter = 1
+tile_map_data = PackedByteArray("AABQAAAAAQABAAEAAABPAAAAAQAAAAEAAABPAAEAAQAAAAIAAABQAAEAAQABAAIAAABRAAEAAQABAAIAAABRAP//AQABAAAAAABRAAAAAQABAAEAAABPAP//AQAAAAAAAABQAP//AQABAAAAAABSAAAAAQABAAEAAABTAAAAAQABAAEAAABUAAAAAQABAAEAAABVAAAAAQABAAEAAABWAAAAAQABAAEAAABXAAAAAQABAAEAAABYAAAAAQABAAEAAABZAAAAAQABAAEAAABaAAAAAQABAAEAAABbAAAAAQABAAEAAABSAAEAAQABAAIAAABTAAEAAQABAAIAAABUAAEAAQABAAIAAABVAAEAAQABAAIAAABWAAEAAQABAAIAAABXAAEAAQABAAIAAABYAAEAAQABAAIAAABZAAEAAQABAAIAAABaAAEAAQABAAIAAABbAAEAAQABAAIAAABcAAEAAQABAAIAAABdAAEAAQABAAIAAABeAAEAAQABAAIAAABfAAEAAQABAAIAAABgAAEAAQABAAIAAABhAAEAAQABAAIAAABiAAEAAQABAAIAAABjAAEAAQABAAIAAABkAAEAAQABAAIAAABlAAEAAQABAAIAAABmAAEAAQABAAIAAABnAAEAAQABAAIAAABoAAEAAQACAAIAAABoAP//AQACAAAAAABoAAAAAQACAAEAAABSAP//AQABAAAAAABTAP//AQABAAAAAABUAP//AQABAAAAAABVAP//AQABAAAAAABWAP//AQABAAAAAABXAP//AQABAAAAAABYAP//AQABAAAAAABZAP//AQABAAAAAABaAP//AQABAAAAAABbAP//AQABAAAAAABcAP//AQABAAAAAABdAP//AQABAAAAAABeAP//AQABAAAAAABfAP//AQABAAAAAABgAP//AQABAAAAAABhAP//AQABAAAAAABiAP//AQABAAAAAABjAP//AQABAAAAAABkAP//AQABAAAAAABlAP//AQABAAAAAABmAP//AQABAAAAAABnAP//AQABAAAAAABcAAAAAQABAAEAAABdAAAAAQABAAEAAABeAAAAAQABAAEAAABfAAAAAQABAAEAAABgAAAAAQABAAEAAABhAAAAAQABAAEAAABiAAAAAQABAAEAAABjAAAAAQABAAEAAABkAAAAAQABAAEAAABlAAAAAQABAAEAAABmAAAAAQABAAEAAABnAAAAAQABAAEAAAA=")
 tile_set = SubResource("TileSet_5vl65")
 
 [node name="Plastic" type="TileMapLayer" parent="Tiles" unique_id=1496371058]
 texture_filter = 1
-tile_map_data = PackedByteArray("AAAyAP//AAAAAAAAAAAzAP//AAABAAAAAAA0AP//AAABAAAAAAA1AP//AAABAAAAAAA2AP//AAABAAAAAAAyAAAAAAAAAAEAAAAyAAEAAAAAAAIAAAAzAAEAAAABAAIAAAA0AAEAAAABAAIAAAA1AAEAAAABAAIAAAA2AAEAAAABAAIAAAAzAAAAAAABAAEAAAA0AAAAAAABAAEAAAA1AAAAAAABAAEAAAA2AAAAAAABAAEAAAA3AAAAAAABAAEAAAA4AAAAAAABAAEAAAA3AP//AAABAAAAAAA4AP//AAABAAAAAAA5AP//AAABAAAAAAA6AP//AAABAAAAAAA7AP//AAABAAAAAAA8AP//AAABAAAAAAA9AP//AAABAAAAAAA9AAAAAAABAAEAAAA8AAAAAAABAAEAAAA7AAAAAAABAAEAAAA6AAAAAAABAAEAAAA5AAAAAAABAAEAAAA3AAEAAAABAAIAAAA4AAEAAAABAAIAAAA5AAEAAAABAAIAAAA6AAEAAAABAAIAAAA7AAEAAAABAAIAAAA8AAEAAAABAAIAAAA+AAAAAAABAAEAAAA/AAAAAAABAAEAAABAAAAAAAABAAEAAABBAAAAAAABAAEAAABCAAAAAAABAAEAAABDAAAAAAABAAEAAABFAAAAAAABAAEAAABGAAAAAAABAAEAAABHAAAAAAABAAEAAAA9AAEAAAABAAIAAAA+AAEAAAABAAIAAAA/AAEAAAABAAIAAABAAAEAAAABAAIAAABBAAEAAAABAAIAAABCAAEAAAABAAIAAABDAAEAAAABAAIAAABEAAEAAAABAAIAAABFAAEAAAABAAIAAABHAAEAAAABAAIAAABGAAEAAAABAAIAAABEAAAAAAABAAEAAABIAAEAAAACAAIAAAA+AP//AAABAAAAAAA/AP//AAABAAAAAABAAP//AAABAAAAAABBAP//AAABAAAAAABCAP//AAABAAAAAABDAP//AAABAAAAAABEAP//AAABAAAAAABFAP//AAABAAAAAABGAP//AAABAAAAAABHAP//AAABAAAAAABIAP//AAACAAAAAABIAAAAAAACAAEAAABTAP//AAADAAAAAABSAP//AAADAAAAAABRAP//AAADAAAAAABQAP//AAADAAAAAABPAP//AAADAAAAAAA=")
+tile_map_data = PackedByteArray("AAAyAP//AAAAAAAAAAAzAP//AAABAAAAAAA0AP//AAABAAAAAAA1AP//AAABAAAAAAA2AP//AAABAAAAAAAyAAAAAAAAAAEAAAAyAAEAAAAAAAIAAAAzAAEAAAABAAIAAAA0AAEAAAABAAIAAAA1AAEAAAABAAIAAAA2AAEAAAABAAIAAAAzAAAAAAABAAEAAAA0AAAAAAABAAEAAAA1AAAAAAABAAEAAAA2AAAAAAABAAEAAAA3AAAAAAABAAEAAAA4AAAAAAABAAEAAAA3AP//AAABAAAAAAA4AP//AAABAAAAAAA5AP//AAABAAAAAAA6AP//AAABAAAAAAA7AP//AAABAAAAAAA8AP//AAABAAAAAAA9AP//AAABAAAAAAA9AAAAAAABAAEAAAA8AAAAAAABAAEAAAA7AAAAAAABAAEAAAA6AAAAAAABAAEAAAA5AAAAAAABAAEAAAA3AAEAAAABAAIAAAA4AAEAAAABAAIAAAA5AAEAAAABAAIAAAA6AAEAAAABAAIAAAA7AAEAAAABAAIAAAA8AAEAAAABAAIAAAA+AAAAAAABAAEAAAA/AAAAAAABAAEAAABAAAAAAAABAAEAAABBAAAAAAABAAEAAABCAAAAAAABAAEAAABDAAAAAAABAAEAAABFAAAAAAABAAEAAABGAAAAAAABAAEAAABHAAAAAAABAAEAAAA9AAEAAAABAAIAAAA+AAEAAAABAAIAAAA/AAEAAAABAAIAAABAAAEAAAABAAIAAABBAAEAAAABAAIAAABCAAEAAAABAAIAAABDAAEAAAABAAIAAABEAAEAAAABAAIAAABFAAEAAAABAAIAAABHAAEAAAABAAIAAABGAAEAAAABAAIAAABEAAAAAAABAAEAAABIAAEAAAACAAIAAAA+AP//AAABAAAAAAA/AP//AAABAAAAAABAAP//AAABAAAAAABBAP//AAABAAAAAABCAP//AAABAAAAAABDAP//AAABAAAAAABEAP//AAABAAAAAABFAP//AAABAAAAAABGAP//AAABAAAAAABHAP//AAABAAAAAABIAP//AAACAAAAAABIAAAAAAACAAEAAAA=")
 tile_set = SubResource("TileSet_pcy4t")
 
 [node name="Label" type="Label" parent="." unique_id=340033965]
@@ -262,5 +264,10 @@ offset_top = 129.0
 offset_right = 406.0
 offset_bottom = 152.0
 text = "Use your enemy"
+
+[node name="secretaries" type="Node2D" parent="." unique_id=715977990]
+
+[node name="secretary" parent="secretaries" unique_id=1794300365 instance=ExtResource("12_8jo15")]
+position = Vector2(3316, -144)
 
 [connection signal="timeout" from="Collectibles/GoldSpawner" to="Collectibles" method="_on_timer_timeout"]
