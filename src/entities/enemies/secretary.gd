@@ -8,7 +8,7 @@ extends CharacterBody2D
 @export var friction: float = 1000.0
 
 # --- Настройки боя (НОВОЕ) ---
-@export var attack_range: float = 150.0 # Дистанция для начала удара
+@export var attack_range: float = 0 # Дистанция для начала удара
 @export var attack_duration: float = 0.5 # Сколько длится сам удар (время включенного хитбокса)
 @export var attack_cooldown: float = 1.0 # Задержка после удара (время, когда секретарь стоит и тупит)
 
@@ -63,6 +63,7 @@ func _ready():
 			health_component.health_changed.connect(func(_current): _blink_effect())
 
 	_connect_signals_safely()
+	_autonomous_attack_loop()
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -77,13 +78,7 @@ func _physics_process(delta: float) -> void:
 
 			# Преследование игрока
 			if chase:
-				var distance = global_position.distance_to(target_pos)
-
-				# Если игрок достаточно близко - начинаем бить
-				if distance <= attack_range:
-					_perform_attack()
-				# Иначе - бежим к игроку
-				elif movement_behavior:
+				if movement_behavior:
 					var move_vec = movement_behavior.get_velocity(global_position, target_pos, speed)
 					target_velocity_x = move_vec.x
 					if target_velocity_x != 0:
@@ -103,38 +98,46 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 # --- Логика Атаки ---
-func _perform_attack():
-	# Защита: если уже атакуем, не начинаем новую атаку
-	if is_attacking:
-		return
 
+func _autonomous_attack_loop():
+	while alive:
+		# 1. Ждем кулдаун (1 секунда, в это время секретарь может бежать)
+		await get_tree().create_timer(attack_cooldown).timeout
+
+		# Защита от ошибки, если убили во время ожидания
+		if not alive:
+			break
+
+		# 2. Атакуем (0.5 секунд, секретарь будет стоять на месте)
+		await _perform_attack()
+
+func _perform_attack():
 	is_attacking = true
 
 	# 1. Поворачиваем хитбокс в сторону игрока
+	#if hitbox_component:
+	#	var dir = sign(target_pos.x - global_position.x)
+	#	if dir != 0:
+	#		hitbox_component.scale.x = dir
+	#		sprite.flip_h = (dir < 0)
+
+	# 2. Включаем урон
 	if hitbox_component:
-		var dir = sign(target_pos.x - global_position.x)
-		if dir != 0:
-			hitbox_component.scale.x = dir
-			sprite.flip_h = (dir < 0)
+		hitbox_component.set_deferred("monitoring", true)
 
-	# 2. Включаем урон (меч Секретаря)
-	# if hitbox_component:
-	# 	hitbox_component.set_deferred("monitoring", true)
+	# 3. ЗАПУСКАЕМ АНИМАЦИЮ (укажите точное имя анимации!)
+	#var anim_player = $AttackHitbox/AnimationPlayer
+	#if anim_player and anim_player.has_animation("attack_anim"):
+	#	anim_player.play("attack_anim")
 
-	# ЗДЕСЬ МОЖЕТЕ ЗАПУСТИТЬ АНИМАЦИЮ, если она есть
-	# Например: $Node2D/AttackAnim.play("attack")
-
-	# 3. Ждем время самого удара (например, полсекунды)
+	# 4. Ждем время самого удара (attack_duration = 0.5)
 	await get_tree().create_timer(attack_duration).timeout
 
-	# 4. Выключаем урон (удар завершен)
-	# if hitbox_component:
-	# 	hitbox_component.set_deferred("monitoring", false)
+	# 5. Выключаем урон
+	if hitbox_component:
+		hitbox_component.set_deferred("monitoring", false)
 
-	# 5. Окно уязвимости: ждем время кулдауна. В это время секретарь просто стоит!
-	await get_tree().create_timer(attack_cooldown).timeout
-
-	# 6. Снимаем блокировку, секретарь снова готов бежать/бить
+	# 6. Снимаем блокировку, секретарь снова готов бежать (кулдаун обрабатывается в цикле)
 	is_attacking = false
 
 # --- Системные функции ---
