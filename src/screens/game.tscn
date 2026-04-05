@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dccihsti2d3ve" path="res://src/entities/enemies/fatmob.tscn" id="10_yodwr"]
 [ext_resource type="PackedScene" uid="uid://cdchbg6pg3n6p" path="res://src/entities/enemies/secretary.tscn" id="12_8jo15"]
 [ext_resource type="Texture2D" uid="uid://c4ladwne61lff" path="res://assets/textures/environment/trulypuretileset.bmp" id="12_pcy4t"]
+[ext_resource type="Texture2D" uid="uid://dkkfs53mq5tg0" path="res://assets/textures/environment/zone2tileset.bmp" id="13_pdp0a"]
 
 [sub_resource type="GDScript" id="GDScript_66r2r"]
 
@@ -180,6 +181,48 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 14
 sources/0 = SubResource("TileSetAtlasSource_pdp0a")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eoeri"]
+texture = ExtResource("13_pdp0a")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:0/0 = 0
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0 = 0
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0 = 0
+4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_b73ug"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 15
+sources/0 = SubResource("TileSetAtlasSource_eoeri")
+
 [node name="Game" type="Node2D" unique_id=1793919468]
 script = ExtResource("1_80nbo")
 
@@ -188,7 +231,7 @@ script = ExtResource("1_80nbo")
 [node name="Player" type="Node2D" parent="." unique_id=2015108757]
 
 [node name="Player" parent="Player" unique_id=1211681329 instance=ExtResource("2_e2o6t")]
-position = Vector2(2834, -74)
+position = Vector2(35, 526)
 
 [node name="Ghosts" type="Node2D" parent="." unique_id=1663281385]
 
@@ -308,6 +351,11 @@ tile_set = SubResource("TileSet_pcy4t")
 texture_filter = 1
 tile_map_data = PackedByteArray("AABwAP//AAAAAAAAAABwAAAAAAAAAAIAAABxAAAAAAABAAIAAAByAAAAAAABAAIAAABzAAAAAAABAAIAAAB0AAAAAAABAAIAAAB1AAAAAAABAAIAAAB2AAAAAAABAAIAAAB3AAAAAAABAAIAAAB4AAAAAAABAAIAAAB5AAAAAAABAAIAAAB6AAAAAAABAAIAAAB7AAAAAAABAAIAAAB8AAAAAAABAAIAAAB9AAAAAAABAAIAAAB+AAAAAAABAAIAAAB/AAAAAAABAAIAAACAAAAAAAABAAIAAACBAAAAAAABAAIAAABxAP//AAABAAAAAAByAP//AAABAAAAAABzAP//AAABAAAAAAB0AP//AAABAAAAAAB1AP//AAABAAAAAAB2AP//AAABAAAAAAB3AP//AAABAAAAAAB4AP//AAABAAAAAAB5AP//AAABAAAAAAB6AP//AAABAAAAAAB7AP//AAABAAAAAAB8AP//AAABAAAAAAB9AP//AAABAAAAAAB+AP//AAABAAAAAAB/AP//AAABAAAAAACAAP//AAABAAAAAACBAP//AAABAAAAAACCAP//AAABAAAAAACCAAAAAAABAAIAAACDAAAAAAABAAIAAACDAP//AAABAAAAAAB8APr/AAAEAAEAAACEAAAAAAABAAIAAACFAAAAAAABAAIAAACGAAAAAAABAAIAAACHAAAAAAABAAIAAACIAAAAAAABAAIAAACJAAAAAAABAAIAAACKAAAAAAABAAIAAACLAAAAAAABAAIAAACMAAAAAAABAAIAAACNAAAAAAABAAIAAACOAAAAAAABAAIAAACPAAAAAAABAAIAAACQAAAAAAABAAIAAACRAAAAAAABAAIAAACSAAAAAAABAAIAAACTAAAAAAABAAIAAACUAAAAAAABAAIAAACVAAAAAAABAAIAAACWAAAAAAABAAIAAACXAAAAAAABAAIAAACEAP//AAABAAAAAACFAP//AAABAAAAAACGAP//AAABAAAAAACHAP//AAABAAAAAACIAP//AAABAAAAAACJAP//AAABAAAAAACKAP//AAABAAAAAACLAP//AAABAAAAAACMAP//AAABAAAAAACNAP//AAABAAAAAACOAP//AAABAAAAAACPAP//AAABAAAAAACQAP//AAABAAAAAACRAP//AAABAAAAAACSAP//AAABAAAAAACTAP//AAABAAAAAACUAP//AAABAAAAAACVAP//AAABAAAAAACWAP//AAABAAAAAACXAP//AAABAAAAAACYAP//AAACAAAAAACYAAAAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_eoeri")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Tiles" unique_id=2145156700]
+texture_filter = 1
+tile_map_data = PackedByteArray("AACfAP//AAAAAAAAAACfAAAAAAAAAAIAAACgAAAAAAABAAIAAAChAAAAAAABAAIAAACiAAAAAAABAAIAAACgAP//AAABAAAAAAChAP//AAABAAAAAACiAP//AAABAAAAAACjAAAAAAACAAIAAACjAP//AAACAAAAAAA=")
+tile_set = SubResource("TileSet_b73ug")
 
 [node name="Label" type="Label" parent="." unique_id=340033965]
 offset_left = 280.0
