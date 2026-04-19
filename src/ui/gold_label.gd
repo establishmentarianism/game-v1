@@ -12,4 +12,4 @@ func _process(_delta):
 	# В будущем переделаем на сигналы (Events.gold_changed)
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		text = "Gold: " + str(player.gold)
+		text = "Credits: " + str(player.gold)

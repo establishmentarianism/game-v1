@@ -1,4 +1,4 @@
-class_name FMob
+class_name Burnt
 extends CharacterBody2D
 
 # --- Настройки ---

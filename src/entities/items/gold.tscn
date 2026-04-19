@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ffnmiyt7id57"]
 
 [ext_resource type="Script" uid="uid://cghqweq0x3pfi" path="res://src/entities/items/gold.gd" id="1_1p357"]
-[ext_resource type="SpriteFrames" uid="uid://bi6vevvfbv5lm" path="res://src/entities/items/gold.tres" id="2_wndgm"]
+[ext_resource type="Texture2D" uid="uid://b60tqn80g7nrt" path="res://assets/textures/items/credit.bmp" id="2_wndgm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5tshw"]
 radius = 4.5
@@ -12,11 +12,13 @@ collision_mask = 3
 script = ExtResource("1_1p357")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1270373423]
+rotation = -6.2831855
 shape = SubResource("CircleShape2D_5tshw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=909626446]
-show_behind_parent = true
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1712629001]
 texture_filter = 1
-sprite_frames = ExtResource("2_wndgm")
+position = Vector2(1.4901161e-08, 0)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_wndgm")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

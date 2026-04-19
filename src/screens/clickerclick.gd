@@ -5,7 +5,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 func _on_button_3_button_down() -> void:
 	a += 1
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float):
 	text = str(a)
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(_delta: float):
+#	text = str(a)

@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cdchbg6pg3n6p" path="res://src/entities/enemies/secretary.tscn" id="12_8jo15"]
 [ext_resource type="Texture2D" uid="uid://c4ladwne61lff" path="res://assets/textures/environment/trulypuretileset.bmp" id="12_pcy4t"]
 [ext_resource type="Texture2D" uid="uid://dkkfs53mq5tg0" path="res://assets/textures/environment/zone2tileset.bmp" id="13_pdp0a"]
+[ext_resource type="PackedScene" uid="uid://dsiuyuj0b7xbk" path="res://src/entities/enemies/burnt.tscn" id="14_eoeri"]
 
 [sub_resource type="GDScript" id="GDScript_66r2r"]
 
@@ -231,7 +232,7 @@ script = ExtResource("1_80nbo")
 [node name="Player" type="Node2D" parent="." unique_id=2015108757]
 
 [node name="Player" parent="Player" unique_id=1211681329 instance=ExtResource("2_e2o6t")]
-position = Vector2(35, 526)
+position = Vector2(5159, -67)
 
 [node name="Ghosts" type="Node2D" parent="." unique_id=1663281385]
 
@@ -272,7 +273,8 @@ position = Vector2(1235, 341)
 position = Vector2(138, 280)
 
 [node name="Mob12" parent="Ghosts" unique_id=1232268882 instance=ExtResource("4_fc0e3")]
-position = Vector2(342, 215)
+position = Vector2(320, 215.00002)
+speed = 0
 
 [node name="Fmob" parent="Ghosts" unique_id=1223650205 instance=ExtResource("10_yodwr")]
 position = Vector2(359, -95)
@@ -301,7 +303,7 @@ script = ExtResource("5_ryrav")
 offset_top = 26.0
 offset_right = 45.0
 offset_bottom = 49.0
-text = "GOLD"
+text = "CREDITS"
 script = ExtResource("6_eow3j")
 
 [node name="Frags" type="Label" parent="Stats" unique_id=223929451]
@@ -309,7 +311,6 @@ offset_left = 2.0
 offset_top = 53.0
 offset_right = 42.0
 offset_bottom = 76.0
-text = "Kills: 0"
 script = SubResource("GDScript_66r2r")
 
 [node name="Collectibles" type="Node2D" parent="." unique_id=1403933936]
@@ -352,9 +353,9 @@ texture_filter = 1
 tile_map_data = PackedByteArray("AABwAP//AAAAAAAAAABwAAAAAAAAAAIAAABxAAAAAAABAAIAAAByAAAAAAABAAIAAABzAAAAAAABAAIAAAB0AAAAAAABAAIAAAB1AAAAAAABAAIAAAB2AAAAAAABAAIAAAB3AAAAAAABAAIAAAB4AAAAAAABAAIAAAB5AAAAAAABAAIAAAB6AAAAAAABAAIAAAB7AAAAAAABAAIAAAB8AAAAAAABAAIAAAB9AAAAAAABAAIAAAB+AAAAAAABAAIAAAB/AAAAAAABAAIAAACAAAAAAAABAAIAAACBAAAAAAABAAIAAABxAP//AAABAAAAAAByAP//AAABAAAAAABzAP//AAABAAAAAAB0AP//AAABAAAAAAB1AP//AAABAAAAAAB2AP//AAABAAAAAAB3AP//AAABAAAAAAB4AP//AAABAAAAAAB5AP//AAABAAAAAAB6AP//AAABAAAAAAB7AP//AAABAAAAAAB8AP//AAABAAAAAAB9AP//AAABAAAAAAB+AP//AAABAAAAAAB/AP//AAABAAAAAACAAP//AAABAAAAAACBAP//AAABAAAAAACCAP//AAABAAAAAACCAAAAAAABAAIAAACDAAAAAAABAAIAAACDAP//AAABAAAAAAB8APr/AAAEAAEAAACEAAAAAAABAAIAAACFAAAAAAABAAIAAACGAAAAAAABAAIAAACHAAAAAAABAAIAAACIAAAAAAABAAIAAACJAAAAAAABAAIAAACKAAAAAAABAAIAAACLAAAAAAABAAIAAACMAAAAAAABAAIAAACNAAAAAAABAAIAAACOAAAAAAABAAIAAACPAAAAAAABAAIAAACQAAAAAAABAAIAAACRAAAAAAABAAIAAACSAAAAAAABAAIAAACTAAAAAAABAAIAAACUAAAAAAABAAIAAACVAAAAAAABAAIAAACWAAAAAAABAAIAAACXAAAAAAABAAIAAACEAP//AAABAAAAAACFAP//AAABAAAAAACGAP//AAABAAAAAACHAP//AAABAAAAAACIAP//AAABAAAAAACJAP//AAABAAAAAACKAP//AAABAAAAAACLAP//AAABAAAAAACMAP//AAABAAAAAACNAP//AAABAAAAAACOAP//AAABAAAAAACPAP//AAABAAAAAACQAP//AAABAAAAAACRAP//AAABAAAAAACSAP//AAABAAAAAACTAP//AAABAAAAAACUAP//AAABAAAAAACVAP//AAABAAAAAACWAP//AAABAAAAAACXAP//AAABAAAAAACYAP//AAACAAAAAACYAAAAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_eoeri")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="Tiles" unique_id=2145156700]
+[node name="Zone2" type="TileMapLayer" parent="Tiles" unique_id=2145156700]
 texture_filter = 1
-tile_map_data = PackedByteArray("AACfAP//AAAAAAAAAACfAAAAAAAAAAIAAACgAAAAAAABAAIAAAChAAAAAAABAAIAAACiAAAAAAABAAIAAACgAP//AAABAAAAAAChAP//AAABAAAAAACiAP//AAABAAAAAACjAAAAAAACAAIAAACjAP//AAACAAAAAAA=")
+tile_map_data = PackedByteArray("AACfAP//AAAAAAAAAACfAAAAAAAAAAIAAACgAAAAAAABAAIAAAChAAAAAAABAAIAAACiAAAAAAABAAIAAACgAP//AAABAAAAAAChAP//AAABAAAAAACiAP//AAABAAAAAACjAAAAAAABAAIAAACjAP//AAABAAAAAACkAAAAAAABAAIAAAClAAAAAAABAAIAAACmAAAAAAABAAIAAACnAAAAAAABAAIAAACoAAAAAAABAAIAAACkAP//AAABAAAAAAClAP//AAABAAAAAACmAP//AAABAAAAAACnAP//AAABAAAAAACoAP//AAABAAAAAACpAP//AAACAAAAAACpAAAAAAACAAIAAAA=")
 tile_set = SubResource("TileSet_b73ug")
 
 [node name="Label" type="Label" parent="." unique_id=340033965]
@@ -370,6 +371,9 @@ text = "Use your enemy"
 position = Vector2(3260, -149)
 
 [node name="secretary2" parent="secretaries" unique_id=641177377 instance=ExtResource("12_8jo15")]
-position = Vector2(4815, -141)
+position = Vector2(4704, -154)
+
+[node name="burnt" parent="." unique_id=147335360 instance=ExtResource("14_eoeri")]
+position = Vector2(5275, -91)
 
 [connection signal="timeout" from="Collectibles/GoldSpawner" to="Collectibles" method="_on_timer_timeout"]
