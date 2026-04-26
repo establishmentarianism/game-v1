@@ -65,7 +65,7 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://d1c4ebo8avv0l"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=588134463]
-position = Vector2(-1, -2)
+position = Vector2(-5, -2)
 shape = SubResource("RectangleShape2D_yxmrl")
 
 [node name="ChaseBehavior" type="Node" parent="." unique_id=1416562459]

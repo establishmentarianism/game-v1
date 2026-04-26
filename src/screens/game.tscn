@@ -232,7 +232,7 @@ script = ExtResource("1_80nbo")
 [node name="Player" type="Node2D" parent="." unique_id=2015108757]
 
 [node name="Player" parent="Player" unique_id=1211681329 instance=ExtResource("2_e2o6t")]
-position = Vector2(5159, -67)
+position = Vector2(27, 509)
 
 [node name="Ghosts" type="Node2D" parent="." unique_id=1663281385]
 
@@ -291,6 +291,13 @@ position = Vector2(2268, -72)
 [node name="fatmob4" parent="Ghosts" unique_id=1054466103 instance=ExtResource("10_yodwr")]
 position = Vector2(3117, -65)
 
+[node name="Mob14" parent="Ghosts" unique_id=1154617504 instance=ExtResource("4_fc0e3")]
+position = Vector2(5428, -40)
+speed = 0
+
+[node name="Mob15" parent="Ghosts" unique_id=1953360657 instance=ExtResource("4_fc0e3")]
+position = Vector2(4259, -39)
+
 [node name="Stats" type="CanvasLayer" parent="." unique_id=749872115]
 
 [node name="Health" type="Label" parent="Stats" unique_id=1632774079]
@@ -321,7 +328,7 @@ gold_scene = ExtResource("8_aehps")
 wait_time = 3.024
 autostart = true
 
-[node name="Hint" type="Label" parent="." unique_id=962210339]
+[node name="Tutorial" type="Label" parent="." unique_id=962210339]
 texture_filter = 1
 offset_left = 12.0
 offset_top = 397.0
@@ -355,15 +362,15 @@ tile_set = SubResource("TileSet_eoeri")
 
 [node name="Zone2" type="TileMapLayer" parent="Tiles" unique_id=2145156700]
 texture_filter = 1
-tile_map_data = PackedByteArray("AACfAP//AAAAAAAAAACfAAAAAAAAAAIAAACgAAAAAAABAAIAAAChAAAAAAABAAIAAACiAAAAAAABAAIAAACgAP//AAABAAAAAAChAP//AAABAAAAAACiAP//AAABAAAAAACjAAAAAAABAAIAAACjAP//AAABAAAAAACkAAAAAAABAAIAAAClAAAAAAABAAIAAACmAAAAAAABAAIAAACnAAAAAAABAAIAAACoAAAAAAABAAIAAACkAP//AAABAAAAAAClAP//AAABAAAAAACmAP//AAABAAAAAACnAP//AAABAAAAAACoAP//AAABAAAAAACpAP//AAACAAAAAACpAAAAAAACAAIAAAA=")
+tile_map_data = PackedByteArray("AACfAP//AAAAAAAAAACfAAAAAAAAAAIAAACgAAAAAAABAAIAAAChAAAAAAABAAIAAACiAAAAAAABAAIAAACgAP//AAABAAAAAAChAP//AAABAAAAAACiAP//AAABAAAAAACjAAAAAAABAAIAAACjAP//AAABAAAAAACkAAAAAAABAAIAAAClAAAAAAABAAIAAACmAAAAAAABAAIAAACnAAAAAAABAAIAAACoAAAAAAABAAIAAACkAP//AAABAAAAAAClAP//AAABAAAAAACmAP//AAABAAAAAACnAP//AAABAAAAAACoAP//AAABAAAAAACpAP//AAACAAAAAACpAAAAAAACAAIAAAC7AP//AAAEAAAAAAC7AAAAAAAEAAIAAAA=")
 tile_set = SubResource("TileSet_b73ug")
 
-[node name="Label" type="Label" parent="." unique_id=340033965]
+[node name="hint" type="Label" parent="." unique_id=340033965]
 offset_left = 280.0
 offset_top = 129.0
 offset_right = 406.0
 offset_bottom = 152.0
-text = "Use your enemy"
+text = "Jump on the ghost"
 
 [node name="secretaries" type="Node2D" parent="." unique_id=715977990]
 
@@ -374,6 +381,13 @@ position = Vector2(3260, -149)
 position = Vector2(4704, -154)
 
 [node name="burnt" parent="." unique_id=147335360 instance=ExtResource("14_eoeri")]
-position = Vector2(5275, -91)
+position = Vector2(6007, -93)
+
+[node name="Label2" type="Label" parent="." unique_id=1393652359]
+offset_left = 5345.0
+offset_top = -92.0
+offset_right = 5385.0
+offset_bottom = -69.0
+text = "WORK IN PROGRESS"
 
 [connection signal="timeout" from="Collectibles/GoldSpawner" to="Collectibles" method="_on_timer_timeout"]

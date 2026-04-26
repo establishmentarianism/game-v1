@@ -39,19 +39,19 @@ script = ExtResource("2_x0ktp")
 
 [node name="TitleScreen" type="Sprite2D" parent="." unique_id=1663007608]
 texture_filter = 1
-position = Vector2(599, 232)
+position = Vector2(595, 229)
 scale = Vector2(2, 2)
 texture = ExtResource("3_vsqfw")
 
 [node name="PlayButtonSprite(bad)" type="Sprite2D" parent="." unique_id=679211222]
 texture_filter = 1
-position = Vector2(604.5, 477.5)
+position = Vector2(-537.9999, 380)
 scale = Vector2(1.4322915, 0.8020832)
 texture = ExtResource("4_kc3qa")
 
 [node name="ExitButtonSprite" type="Sprite2D" parent="." unique_id=1625833736]
 texture_filter = 1
-position = Vector2(605, 578.5)
+position = Vector2(-537, 511)
 scale = Vector2(1.1280001, 0.8020836)
 texture = ExtResource("5_phj1p")
 
