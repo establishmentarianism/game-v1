@@ -6,7 +6,7 @@
 
 ### Игровой движок
 
-- **Godot 4.5.1** (Mobile renderer)
+- **Godot 4.6** (Mobile renderer)
 - **Язык:** GDScript
 
 ### Архитектура
